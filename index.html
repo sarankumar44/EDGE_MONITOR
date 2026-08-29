@@ -1,397 +1,388 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>EdgeKWS Dashboard</title>
-
+    <title>F.R.I.D.A.Y. // EDGE KWS</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- TOP NAVIGATION -->
-    <header class="topbar">
+<div class="scanline"></div>
 
-        <div class="brand">
-            <div class="brand-icon">EK</div>
+<!-- SIDEBAR -->
+<aside class="sidebar">
 
-            <div>
-                <h1>EDGE<span>//KWS</span></h1>
-                <p>REAL-TIME EDGE ANALYTICS</p>
-            </div>
+    <div class="brand">
+        <div class="friday-orb">◉</div>
+        <h1>F.R.I.D.A.Y.</h1>
+        <span>EDGE INTELLIGENCE</span>
+    </div>
+
+    <nav>
+        <button class="nav active">⌂ <span>DASHBOARD</span></button>
+        <button class="nav">◉ <span>VOICE ANALYTICS</span></button>
+        <button class="nav">⌁ <span>TELEMETRY</span></button>
+        <button class="nav">▣ <span>DEVICE INFO</span></button>
+        <button class="nav">▤ <span>SYSTEM LOGS</span></button>
+        <button class="nav">⚙ <span>SETTINGS</span></button>
+    </nav>
+
+    <div class="side-device">
+        <div class="pulse-dot"></div>
+        <div>
+            <b>ESP32 XIAO S3</b>
+            <small>EDGE NODE</small>
+        </div>
+    </div>
+
+</aside>
+
+
+<!-- MAIN -->
+<main>
+
+    <!-- HEADER -->
+    <header>
+
+        <div>
+            <small>ARTIFICIAL INTELLIGENCE // EDGE COMPUTING</small>
+            <h2>EDGE<span>//KWS</span></h2>
         </div>
 
         <div class="connection">
-            <span class="status-dot"></span>
+            <div class="pulse-dot"></div>
             <div>
-                <strong>FIREBASE</strong>
-                <small>REALTIME DATABASE</small>
+                <b id="firebaseStatus">CONNECTING</b>
+                <small>FIREBASE REALTIME DATABASE</small>
             </div>
+        </div>
+
+        <div class="clock">
+            <b id="clock">00:00:00</b>
+            <small id="date"></small>
         </div>
 
     </header>
 
 
-    <!-- MAIN CONTENT -->
-    <main class="dashboard">
+    <!-- GREETING -->
+    <section class="greeting glass">
 
-        <!-- WELCOME -->
-        <section class="intro">
+        <div class="arc"></div>
 
-            <div>
-                <p class="label">EDGE DEVICE MONITORING</p>
+        <div>
+            <small>F.R.I.D.A.Y. SYSTEM</small>
+            <h3>Hello, Saran.</h3>
+            <p>Your Edge Device is <strong id="onlineText">connecting...</strong></p>
+        </div>
 
-                <h2>
-                    Keyword Spotting
-                    <span>Dashboard</span>
-                </h2>
+        <div class="system-badge" id="systemBadge">
+            SYSTEM INITIALIZING
+        </div>
 
-                <p class="description">
-                    Live telemetry and performance data from your edge device.
-                </p>
+    </section>
+
+
+    <!-- TOP GRID -->
+    <section class="top-grid">
+
+
+        <!-- WAKE WORD -->
+        <div class="panel wake-panel">
+
+            <div class="panel-title">
+                <span>◉</span>
+                WAKE WORD DETECTION
+                <i>LIVE</i>
             </div>
 
-            <div class="live-badge">
-                <span class="status-dot"></span>
-                LIVE
-            </div>
+            <div class="wake-content">
 
-        </section>
+                <div class="confidence-ring">
 
-
-        <!-- DEVICE + CONFIDENCE -->
-        <section class="hero-grid">
-
-            <!-- DEVICE -->
-            <div class="card device-card">
-
-                <div class="card-title">
-                    <span>DEVICE</span>
-                    <span class="green-text">ONLINE</span>
-                </div>
-
-                <div class="device-content">
-
-                    <div class="chip">
-                        ESP
-                    </div>
-
-                    <div>
-                        <h3>ESP32-S3</h3>
-
-                        <p class="device-id">
-                            esp32s3_001
-                        </p>
-
-                        <div class="online-label">
-                            <span class="status-dot"></span>
-                            CONNECTED
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="device-footer">
-                    <span>DATA SOURCE</span>
-                    <strong>Firebase Realtime DB</strong>
-                </div>
-
-            </div>
-
-
-            <!-- CONFIDENCE -->
-            <div class="card confidence-card">
-
-                <div class="card-title">
-                    <span>KEYWORD CONFIDENCE</span>
-                    <span>LIVE SCORE</span>
-                </div>
-
-                <div class="confidence-content">
-
-                    <div class="confidence-number">
+                    <div class="ring-inner">
                         <strong id="confidence">--</strong>
-                        <span>%</span>
+                        <small>CONFIDENCE</small>
                     </div>
 
-                    <div class="keyword">
-                        Wake word:
-                        <strong>"Wake up Jarvis"</strong>
-                    </div>
+                </div>
 
-                    <div class="confidence-track">
+                <div class="wake-info">
+
+                    <small>DETECTED PHRASE</small>
+                    <h3>"Wake up Jarvis"</h3>
+
+                    <div class="progress">
                         <div id="confidenceBar"></div>
                     </div>
 
-                    <div class="scale">
-                        <span>0%</span>
-                        <span>50%</span>
-                        <span>100%</span>
+                    <div class="mini-stats">
+
+                        <div>
+                            <small>DETECTIONS</small>
+                            <b id="detections">--</b>
+                        </div>
+
+                        <div>
+                            <small>FALSE ACTIVATIONS</small>
+                            <b id="falseActivations">--</b>
+                        </div>
+
+                        <div>
+                            <small>INFERENCE</small>
+                            <b id="inference">-- ms</b>
+                        </div>
+
                     </div>
 
                 </div>
 
             </div>
 
-        </section>
+            <div class="wave">
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span>
+            </div>
+
+        </div>
 
 
-        <!-- METRIC CARDS -->
-        <section class="metrics">
+        <!-- ESP32 -->
+        <div class="panel device-panel">
 
-            <!-- DETECTIONS -->
-            <div class="metric-card">
+            <div class="panel-title">
+                <span>▣</span>
+                EDGE DEVICE
+                <i id="deviceState">ONLINE</i>
+            </div>
 
-                <div class="metric-icon">◎</div>
+            <div class="device-hologram">
 
-                <div>
-                    <p>DETECTIONS</p>
-                    <strong id="detections">--</strong>
-                    <small>KEYWORDS DETECTED</small>
+                <div class="holo-ring ring1"></div>
+                <div class="holo-ring ring2"></div>
+                <div class="holo-ring ring3"></div>
+
+                <img src="esp32-xiao-s3.png"
+                     alt="ESP32 XIAO S3"
+                     class="esp32-image">
+
+                <div class="device-label">
+                    <b>ESP32</b>
+                    <span>XIAO S3</span>
                 </div>
 
             </div>
 
-
-            <!-- INFERENCE -->
-            <div class="metric-card">
-
-                <div class="metric-icon">◷</div>
-
-                <div>
-                    <p>INFERENCE</p>
-                    <strong id="inference">--</strong>
-                    <small>MILLISECONDS</small>
-                </div>
-
+            <div class="device-id">
+                DEVICE ID
+                <b>esp32s3_001</b>
             </div>
 
+        </div>
 
-            <!-- POWER -->
-            <div class="metric-card">
 
-                <div class="metric-icon">ϟ</div>
+        <!-- LIVE METRICS -->
+        <div class="panel metrics-panel">
 
-                <div>
-                    <p>POWER</p>
+            <div class="panel-title">
+                <span>⌁</span>
+                LIVE TELEMETRY
+                <i>REALTIME</i>
+            </div>
+
+            <div class="metrics">
+
+                <div class="metric">
+                    <small>POWER</small>
                     <strong id="power">--</strong>
-                    <small>mW CONSUMPTION</small>
+                    <span>mW</span>
+                </div>
+
+                <div class="metric">
+                    <small>VOLTAGE</small>
+                    <strong id="voltage">--</strong>
+                    <span>V</span>
+                </div>
+
+                <div class="metric">
+                    <small>CURRENT</small>
+                    <strong id="current">--</strong>
+                    <span>mA</span>
+                </div>
+
+                <div class="metric">
+                    <small>CPU</small>
+                    <strong id="cpu">--</strong>
+                    <span>%</span>
                 </div>
 
             </div>
 
+        </div>
 
-            <!-- VOLTAGE -->
-            <div class="metric-card">
+    </section>
 
-                <div class="metric-icon">V</div>
+
+    <!-- BOTTOM GRID -->
+    <section class="bottom-grid">
+
+
+        <!-- SYSTEM STATUS -->
+        <div class="panel">
+
+            <div class="panel-title">
+                <span>◈</span>
+                SYSTEM STATUS
+            </div>
+
+            <div class="status-list">
 
                 <div>
-                    <p>VOLTAGE</p>
-                    <strong id="voltage">--</strong>
-                    <small>SUPPLY VOLTAGE</small>
+                    <span>DATABASE</span>
+                    <b class="green">CONNECTED</b>
+                </div>
+
+                <div>
+                    <span>DEVICE</span>
+                    <b id="status">--</b>
+                </div>
+
+                <div>
+                    <span>ENGINE</span>
+                    <b class="cyan">EDGE KWS</b>
+                </div>
+
+                <div>
+                    <span>MODE</span>
+                    <b class="green">LIVE</b>
+                </div>
+
+                <div>
+                    <span>RAM</span>
+                    <b><span id="ram">--</span> KB</b>
                 </div>
 
             </div>
 
-        </section>
+        </div>
 
 
-        <!-- LOWER GRID -->
-        <section class="lower-grid">
+        <!-- RESOURCE USAGE -->
+        <div class="panel">
 
-            <!-- TELEMETRY -->
-            <div class="card telemetry">
+            <div class="panel-title">
+                <span>▦</span>
+                RESOURCE USAGE
+            </div>
 
-                <div class="card-heading">
+            <div class="resource">
 
-                    <div>
-                        <p class="label">REAL-TIME DATA</p>
-                        <h3>System Telemetry</h3>
-                    </div>
-
-                    <span class="live-text">
-                        ● STREAMING
-                    </span>
-
+                <div>
+                    <label>CPU UTILIZATION</label>
+                    <b id="cpuText">--%</b>
                 </div>
 
-
-                <div class="telemetry-list">
-
-                    <div class="telemetry-row">
-
-                        <div>
-                            <span class="telemetry-name">CPU UTILIZATION</span>
-                            <span class="telemetry-value" id="cpu">--%</span>
-                        </div>
-
-                        <div class="bar">
-                            <div id="cpuBar"></div>
-                        </div>
-
-                    </div>
-
-
-                    <div class="telemetry-row">
-
-                        <div>
-                            <span class="telemetry-name">RAM USAGE</span>
-                            <span class="telemetry-value">
-                                <span id="ram">--</span> KB
-                            </span>
-                        </div>
-
-                        <div class="bar">
-                            <div id="ramBar"></div>
-                        </div>
-
-                    </div>
-
-
-                    <div class="telemetry-row">
-
-                        <div>
-                            <span class="telemetry-name">CURRENT</span>
-                            <span class="telemetry-value">
-                                <span id="current">--</span> mA
-                            </span>
-                        </div>
-
-                        <div class="bar">
-                            <div id="currentBar"></div>
-                        </div>
-
-                    </div>
-
-
-                    <div class="telemetry-row">
-
-                        <div>
-                            <span class="telemetry-name">FALSE ACTIVATIONS</span>
-                            <span class="telemetry-value" id="falseActivations">
-                                --
-                            </span>
-                        </div>
-
-                        <div class="indicator">
-                            MONITORING
-                        </div>
-
-                    </div>
-
+                <div class="resource-bar">
+                    <span id="cpuBar"></span>
                 </div>
 
             </div>
 
+            <div class="resource">
 
-            <!-- SYSTEM STATUS -->
-            <div class="card system">
-
-                <div class="card-heading">
-
-                    <div>
-                        <p class="label">SYSTEM</p>
-                        <h3>Device Status</h3>
-                    </div>
-
+                <div>
+                    <label>RAM USAGE</label>
+                    <b id="ramText">-- KB</b>
                 </div>
 
-
-                <div class="system-status">
-
-                    <div class="big-status">
-
-                        <span class="status-dot"></span>
-
-                        <div>
-                            <strong id="status">
-                                --
-                            </strong>
-
-                            <small>
-                                CURRENT DEVICE STATE
-                            </small>
-                        </div>
-
-                    </div>
-
-
-                    <div class="status-line">
-                        <span>DEVICE</span>
-                        <strong>esp32s3_001</strong>
-                    </div>
-
-
-                    <div class="status-line">
-                        <span>DATABASE</span>
-                        <strong class="green-text">CONNECTED</strong>
-                    </div>
-
-
-                    <div class="status-line">
-                        <span>MODE</span>
-                        <strong>LIVE</strong>
-                    </div>
-
-
-                    <div class="status-line">
-                        <span>ENGINE</span>
-                        <strong>EDGE KWS</strong>
-                    </div>
-
+                <div class="resource-bar">
+                    <span id="ramBar"></span>
                 </div>
 
             </div>
 
-        </section>
+            <div class="resource">
 
+                <div>
+                    <label>POWER DRAW</label>
+                    <b id="powerText">-- mW</b>
+                </div>
 
-        <!-- LAST DATA -->
-        <section class="last-data card">
+                <div class="resource-bar">
+                    <span id="powerBar"></span>
+                </div>
 
-            <div>
-                <p class="label">LAST UPDATE</p>
-                <strong id="lastUpdate">Waiting for Firebase...</strong>
             </div>
 
-            <div>
-                <p class="label">DATABASE PATH</p>
-                <strong>devices / esp32s3_001 / live</strong>
+        </div>
+
+
+        <!-- FRIDAY CONSOLE -->
+        <div class="panel console">
+
+            <div class="panel-title">
+                <span>▣</span>
+                F.R.I.D.A.Y. CONSOLE
+                <i>ACTIVE</i>
             </div>
 
-            <div>
-                <p class="label">STATUS</p>
-                <strong class="green-text">REAL-TIME</strong>
+            <div id="logs">
+
+                <p>
+                    <span>[SYSTEM]</span>
+                    F.R.I.D.A.Y. initialized...
+                </p>
+
+                <p>
+                    <span>[FIREBASE]</span>
+                    Waiting for realtime telemetry...
+                </p>
+
             </div>
 
-        </section>
+        </div>
+
+    </section>
 
 
-        <!-- FOOTER -->
-        <footer>
+    <!-- COMMAND BAR -->
+    <section class="command">
 
-            <span>EDGE//KWS MONITOR</span>
+        <div class="assistant-icon">◉</div>
 
-            <span>•</span>
+        <div>
+            <small>F.R.I.D.A.Y.</small>
+            <span id="assistantMessage">
+                Monitoring Edge Device...
+            </span>
+        </div>
 
-            <span>FIREBASE REALTIME DATABASE</span>
+        <input
+            id="commandInput"
+            type="text"
+            placeholder="Type a command..."
+        >
 
-            <span>•</span>
+        <button id="commandButton">➤</button>
 
-            <span>ESP32-S3</span>
-
-        </footer>
-
-    </main>
+    </section>
 
 
-    <!-- FIREBASE JAVASCRIPT -->
-    <script type="module" src="app.js"></script>
+    <footer>
+        EDGE//KWS &nbsp; • &nbsp;
+        F.R.I.D.A.Y. INTELLIGENCE SYSTEM &nbsp; • &nbsp;
+        FIREBASE REALTIME DATABASE
+    </footer>
+
+</main>
+
+
+<script type="module" src="app.js"></script>
 
 </body>
-
 </html>
