@@ -1,21 +1,215 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Edge KWS Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EdgeKWS Monitor</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <h1>Edge KWS Dashboard</h1>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
 
-    <h2>Firebase Data</h2>
+        <div class="logo">
+            <span>▥</span>
+            <div>
+                <h2>EDGE<span>KWS</span></h2>
+                <small>ESP32-S3 MONITOR</small>
+            </div>
+        </div>
 
-    <p>Status: <span id="status">Loading...</span></p>
-    <p>Confidence: <span id="confidence">--</span></p>
-    <p>Detections: <span id="detections">--</span></p>
-    <p>Inference: <span id="inference">--</span></p>
-    <p>Voltage: <span id="voltage">--</span></p>
-    <p>Power: <span id="power">--</span></p>
+        <div class="firebase-status">
+            <span class="dot"></span>
+            FIREBASE LIVE
+        </div>
+
+        <nav>
+            <a class="active">◉ &nbsp; MONITOR</a>
+            <a>◇ &nbsp; KWS CORE</a>
+            <a>⇄ &nbsp; CONNECTION</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <small>EDGE PROCESSOR</small>
+            <strong>ESP32-S3</strong>
+
+            <small>DATA SOURCE</small>
+            <strong>FIREBASE LIVE</strong>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- HEADER -->
+        <header>
+
+            <div>
+                <small>ULTRA-LOW-POWER KEYWORD SPOTTING</small>
+                <h1>EDGE<span>KWS</span> <b>// ESP32-S3</b></h1>
+            </div>
+
+            <div class="device">
+                <small>DEVICE</small>
+                <strong>esp32s3_001</strong>
+                <span class="live">● LIVE</span>
+            </div>
+
+        </header>
+
+
+        <!-- FIREBASE BAR -->
+        <div class="firebase-bar">
+            ● FIREBASE LIVE TELEMETRY
+            <span>Values are read directly from Firebase Realtime Database</span>
+        </div>
+
+
+        <!-- TITLE -->
+        <div class="section-title">
+            <div>
+                <small>01 // MAIN ESP32-S3</small>
+                <h2>KEYWORD SPOTTING MONITOR</h2>
+            </div>
+
+            <div class="working">WORKING</div>
+        </div>
+
+
+        <!-- TOP GRID -->
+        <section class="top-grid">
+
+            <!-- KWS CARD -->
+            <div class="panel kws">
+
+                <div class="panel-header">
+                    LOCAL KWS ENGINE
+                    <span>WORKING</span>
+                </div>
+
+                <div class="kws-content">
+
+                    <div class="mic">
+                        <div>
+                            <small>MIC</small>
+                            <strong>WORKING</strong>
+                        </div>
+                    </div>
+
+                    <div class="kws-data">
+
+                        <small>WAKE PHRASE</small>
+                        <h2>"Wake up Jarvis"</h2>
+
+                        <div class="confidence-label">
+                            <small>CONFIDENCE</small>
+                            <strong id="confidence">--%</strong>
+                        </div>
+
+                        <div class="progress">
+                            <div id="confidenceBar"></div>
+                        </div>
+
+                        <div class="stats">
+
+                            <div>
+                                <small>DETECTIONS</small>
+                                <strong id="detections">--</strong>
+                            </div>
+
+                            <div>
+                                <small>FALSE ACTIVATIONS</small>
+                                <strong id="falseActivations">--</strong>
+                            </div>
+
+                            <div>
+                                <small>INFERENCE</small>
+                                <strong id="inference">-- ms</strong>
+                            </div>
+
+                            <div>
+                                <small>STATUS</small>
+                                <strong id="status">--</strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- POWER CARD -->
+            <div class="panel power">
+
+                <div class="panel-header">
+                    POWER MONITOR
+                    <span>EDGE NODE</span>
+                </div>
+
+                <div class="power-value">
+                    <strong id="power">--</strong>
+                    <small>mW</small>
+                </div>
+
+                <div class="power-stats">
+
+                    <div>
+                        <small>VOLTAGE</small>
+                        <strong id="voltage">-- V</strong>
+                    </div>
+
+                    <div>
+                        <small>CURRENT</small>
+                        <strong id="current">-- mA</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- BOTTOM CARDS -->
+        <section class="cards">
+
+            <div class="metric">
+                <small>CPU UTILIZATION</small>
+                <strong id="cpu">--%</strong>
+                <div class="mini-bar"></div>
+            </div>
+
+            <div class="metric">
+                <small>APPLICATION RAM</small>
+                <strong id="ram">-- KB</strong>
+                <div class="mini-bar"></div>
+            </div>
+
+            <div class="metric">
+                <small>KWS LATENCY</small>
+                <strong id="latency">-- ms</strong>
+                <small>LOCAL INFERENCE</small>
+            </div>
+
+            <div class="metric">
+                <small>DEVICE STATUS</small>
+                <strong id="deviceStatus">--</strong>
+                <small>REAL-TIME CONNECTION</small>
+            </div>
+
+        </section>
+
+    </main>
 
     <script type="module" src="app.js"></script>
 
