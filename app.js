@@ -1,19 +1,19 @@
-import { initializeApp } from
-"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 import {
     getDatabase,
     ref,
     onValue
-} from
-"https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
 
 
-// =====================================================
+// ===============================
 // FIREBASE CONFIG
-// REPLACE THESE VALUES WITH YOUR FIREBASE WEB APP CONFIG
-// =====================================================
+// ===============================
 
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyCFYKUwaU3P0Kb9fiuEbvGWeGys7_S2bKs",
   authDomain: "edge-kws-project.firebaseapp.com",
@@ -26,283 +26,230 @@ const firebaseConfig = {
 };
 
 
-// =====================================================
+// ===============================
 // FIREBASE INITIALIZATION
-// =====================================================
+// ===============================
 
 const app = initializeApp(firebaseConfig);
 
 const db = getDatabase(app);
 
 
-// =====================================================
+// ===============================
 // DATABASE PATH
-// =====================================================
+// ===============================
 
-const liveDataRef = ref(
+const liveData = ref(
     db,
     "devices/esp32s3_001/live"
 );
 
 
-// =====================================================
-// HTML ELEMENTS
-// =====================================================
-
-const firebaseStatus =
-    document.getElementById("firebaseStatus");
-
-const onlineText =
-    document.getElementById("onlineText");
-
-const systemBadge =
-    document.getElementById("systemBadge");
-
-const deviceState =
-    document.getElementById("deviceState");
-
-const status =
-    document.getElementById("status");
-
-const confidence =
-    document.getElementById("confidence");
-
-const confidenceBar =
-    document.getElementById("confidenceBar");
-
-const detections =
-    document.getElementById("detections");
-
-const falseActivations =
-    document.getElementById("falseActivations");
-
-const inference =
-    document.getElementById("inference");
-
-const power =
-    document.getElementById("power");
-
-const voltage =
-    document.getElementById("voltage");
-
-const current =
-    document.getElementById("current");
-
-const cpu =
-    document.getElementById("cpu");
-
-const ram =
-    document.getElementById("ram");
-
-const cpuText =
-    document.getElementById("cpuText");
-
-const ramText =
-    document.getElementById("ramText");
-
-const powerText =
-    document.getElementById("powerText");
-
-const cpuBar =
-    document.getElementById("cpuBar");
-
-const ramBar =
-    document.getElementById("ramBar");
-
-const powerBar =
-    document.getElementById("powerBar");
-
-const assistantMessage =
-    document.getElementById("assistantMessage");
-
-const logs =
-    document.getElementById("logs");
-
-
-// =====================================================
-// FIREBASE CONNECTION
-// =====================================================
+// ===============================
+// REALTIME LISTENER
+// ===============================
 
 onValue(
-    liveDataRef,
+    liveData,
 
     (snapshot) => {
 
         const data = snapshot.val();
 
+        console.log("Firebase Data:", data);
+
+
         if (!data) {
 
             setOffline();
-
-            addLog(
-                "FIREBASE",
-                "No telemetry data found."
-            );
 
             return;
         }
 
 
-        // ---------------------------------------------
-        // CONNECTION STATUS
-        // ---------------------------------------------
+        // ===============================
+        // CONNECTION
+        // ===============================
 
-        firebaseStatus.textContent =
-            "FIREBASE CONNECTED";
+        document.getElementById(
+            "connectionText"
+        ).textContent = "CONNECTED";
 
-        onlineText.textContent =
-            "Online";
+        document.getElementById(
+            "databaseStatus"
+        ).textContent = "CONNECTED";
 
-        systemBadge.textContent =
-            "SYSTEM ONLINE";
+        document.getElementById(
+            "systemState"
+        ).textContent = "SYSTEM ONLINE";
 
-        deviceState.textContent =
-            "ONLINE";
-
-
-        // ---------------------------------------------
-        // STATUS
-        // ---------------------------------------------
-
-        status.textContent =
-            data.status ?? "--";
+        document.getElementById(
+            "consoleStatus"
+        ).innerHTML =
+            "<span>[DATABASE]</span> Realtime telemetry received.";
 
 
-        // ---------------------------------------------
+        // ===============================
+        // DEVICE STATUS
+        // ===============================
+
+        const status =
+            data.status ?? "unknown";
+
+        document.getElementById(
+            "deviceStatus"
+        ).textContent =
+            status.toUpperCase();
+
+        document.getElementById(
+            "deviceStatus2"
+        ).textContent =
+            status.toUpperCase();
+
+
+        // ===============================
         // CONFIDENCE
-        // ---------------------------------------------
+        // ===============================
 
-        const confidenceValue =
+        const confidence =
             Number(data.confidence ?? 0);
 
-        confidence.textContent =
-            confidenceValue + "%";
-
-        confidenceBar.style.width =
-            confidenceValue + "%";
-
-
-        const ring =
-            document.querySelector(
-                ".confidence-ring"
-            );
-
-        ring.style.background =
-            `conic-gradient(
-                var(--green)
-                ${confidenceValue * 3.6}deg,
-                #10251f
-                ${confidenceValue * 3.6}deg
-            )`;
+        document.getElementById(
+            "confidence"
+        ).textContent =
+            confidence + "%";
 
 
-        // ---------------------------------------------
+        document.getElementById(
+            "confidenceBar"
+        ).style.width =
+            Math.min(confidence, 100) + "%";
+
+
+        // ===============================
         // DETECTIONS
-        // ---------------------------------------------
+        // ===============================
 
-        detections.textContent =
-            data.detections ?? "--";
+        document.getElementById(
+            "detections"
+        ).textContent =
+            data.detections ?? 0;
 
 
-        // ---------------------------------------------
+        // ===============================
         // FALSE ACTIVATIONS
-        // ---------------------------------------------
+        // ===============================
 
-        falseActivations.textContent =
-            data.falseActivations ?? "--";
+        document.getElementById(
+            "falseActivations"
+        ).textContent =
+            data.falseActivations ?? 0;
 
 
-        // ---------------------------------------------
+        // ===============================
         // INFERENCE
-        // ---------------------------------------------
+        // ===============================
 
-        inference.textContent =
+        document.getElementById(
+            "inference"
+        ).textContent =
             (data.inferenceMs ?? "--") + " ms";
 
 
-        // ---------------------------------------------
+        // ===============================
         // POWER
-        // ---------------------------------------------
+        // ===============================
 
-        const powerValue =
+        const power =
             Number(data.power ?? 0);
 
-        power.textContent =
-            powerValue;
-
-        powerText.textContent =
-            powerValue + " mW";
-
-        powerBar.style.width =
-            Math.min(powerValue / 5, 100) + "%";
+        document.getElementById(
+            "power"
+        ).textContent =
+            power;
 
 
-        // ---------------------------------------------
+        document.getElementById(
+            "powerValue"
+        ).textContent =
+            power + " mW";
+
+
+        // ===============================
         // VOLTAGE
-        // ---------------------------------------------
+        // ===============================
 
-        voltage.textContent =
+        document.getElementById(
+            "voltage"
+        ).textContent =
             data.voltage ?? "--";
 
 
-        // ---------------------------------------------
+        // ===============================
         // CURRENT
-        // ---------------------------------------------
+        // ===============================
 
-        current.textContent =
+        document.getElementById(
+            "current"
+        ).textContent =
             data.current ?? "--";
 
 
-        // ---------------------------------------------
+        // ===============================
         // CPU
-        // ---------------------------------------------
+        // ===============================
 
-        const cpuValue =
+        const cpu =
             Number(data.cpu ?? 0);
 
-        cpu.textContent =
-            cpuValue;
-
-        cpuText.textContent =
-            cpuValue + "%";
-
-        cpuBar.style.width =
-            Math.min(cpuValue, 100) + "%";
+        document.getElementById(
+            "cpu"
+        ).textContent =
+            cpu;
 
 
-        // ---------------------------------------------
+        document.getElementById(
+            "cpuValue"
+        ).textContent =
+            cpu + "%";
+
+
+        document.getElementById(
+            "cpuBar"
+        ).style.width =
+            Math.min(cpu, 100) + "%";
+
+
+        // ===============================
         // RAM
-        // ---------------------------------------------
+        // ===============================
 
-        const ramValue =
+        const ram =
             Number(data.ram ?? 0);
 
-        ram.textContent =
-            ramValue;
-
-        ramText.textContent =
-            ramValue + " KB";
-
-        ramBar.style.width =
-            Math.min((ramValue / 256) * 100, 100) + "%";
+        document.getElementById(
+            "ram"
+        ).textContent =
+            ram + " KB";
 
 
-        // ---------------------------------------------
-        // FRIDAY MESSAGE
-        // ---------------------------------------------
+        // Just a visual scale
+        // Change 256 if your target RAM is different
 
-        assistantMessage.textContent =
-            `Edge telemetry synchronized. Device ${data.status ?? "unknown"}.`;
+        document.getElementById(
+            "ramBar"
+        ).style.width =
+            Math.min((ram / 256) * 100, 100) + "%";
 
 
-        // ---------------------------------------------
-        // CONSOLE
-        // ---------------------------------------------
+        // ===============================
+        // POWER BAR
+        // ===============================
 
-        addLog(
-            "TELEMETRY",
-            `Power ${powerValue} mW | CPU ${cpuValue}% | Confidence ${confidenceValue}%`
-        );
+        document.getElementById(
+            "powerBar"
+        ).style.width =
+            Math.min((power / 500) * 100, 100) + "%";
 
     },
 
@@ -314,176 +261,63 @@ onValue(
         );
 
         setOffline();
-
-        addLog(
-            "ERROR",
-            error.message
-        );
-
     }
 );
 
 
-// =====================================================
+// ===============================
 // OFFLINE STATE
-// =====================================================
+// ===============================
 
 function setOffline() {
 
-    firebaseStatus.textContent =
-        "DISCONNECTED";
-
-    firebaseStatus.style.color =
-        "#ff4040";
-
-    onlineText.textContent =
-        "Offline";
-
-    onlineText.style.color =
-        "#ff4040";
-
-    systemBadge.textContent =
-        "DATABASE OFFLINE";
-
-    systemBadge.style.color =
-        "#ff4040";
-
-    systemBadge.style.borderColor =
-        "#ff4040";
-
-    deviceState.textContent =
+    document.getElementById(
+        "connectionText"
+    ).textContent =
         "OFFLINE";
 
-}
+    document.getElementById(
+        "databaseStatus"
+    ).textContent =
+        "OFFLINE";
 
+    document.getElementById(
+        "deviceStatus"
+    ).textContent =
+        "OFFLINE";
 
-// =====================================================
-// FRIDAY CONSOLE LOG
-// =====================================================
-
-function addLog(type, message) {
-
-    const p =
-        document.createElement("p");
-
-    p.innerHTML =
-        `<span>[${type}]</span> ${message}`;
-
-    logs.appendChild(p);
-
-
-    while (logs.children.length > 7) {
-
-        logs.removeChild(
-            logs.firstChild
-        );
-
-    }
+    document.getElementById(
+        "systemState"
+    ).textContent =
+        "DATABASE OFFLINE";
 
 }
 
 
-// =====================================================
-// CLOCK
-// =====================================================
+// ===============================
+// DIGITAL CLOCK
+// ===============================
 
 function updateClock() {
 
-    const now =
-        new Date();
+    const now = new Date();
 
-    document.getElementById("clock")
-        .textContent =
-        now.toLocaleTimeString(
-            [],
-            {
-                hour12: false
-            }
-        );
+    const hours =
+        String(now.getHours()).padStart(2, "0");
 
-    document.getElementById("date")
-        .textContent =
-        now.toLocaleDateString(
-            [],
-            {
-                day: "2-digit",
-                month: "short",
-                year: "numeric"
-            }
-        );
+    const minutes =
+        String(now.getMinutes()).padStart(2, "0");
 
+    const seconds =
+        String(now.getSeconds()).padStart(2, "0");
+
+    document.getElementById(
+        "clock"
+    ).textContent =
+        `${hours}:${minutes}:${seconds}`;
 }
 
-setInterval(
-    updateClock,
-    1000
-);
+
+setInterval(updateClock, 1000);
 
 updateClock();
-
-
-// =====================================================
-// COMMAND BAR
-// =====================================================
-
-const commandInput =
-    document.getElementById(
-        "commandInput"
-    );
-
-const commandButton =
-    document.getElementById(
-        "commandButton"
-    );
-
-
-function processCommand() {
-
-    const command =
-        commandInput.value.trim();
-
-    if (!command)
-        return;
-
-
-    addLog(
-        "USER",
-        command
-    );
-
-
-    assistantMessage.textContent =
-        `Command received: ${command}`;
-
-
-    commandInput.value = "";
-
-
-    setTimeout(() => {
-
-        assistantMessage.textContent =
-            "F.R.I.D.A.Y. is monitoring the Edge device.";
-
-    }, 2500);
-
-}
-
-
-commandButton.addEventListener(
-    "click",
-    processCommand
-);
-
-
-commandInput.addEventListener(
-    "keydown",
-    (event) => {
-
-        if (event.key === "Enter") {
-
-            processCommand();
-
-        }
-
-    }
-);
