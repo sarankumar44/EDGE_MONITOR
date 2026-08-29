@@ -475,13 +475,17 @@ nav a.active span {
         inset 0 0 20px rgba(0,255,100,.04);
 }
 
-.esp-image {
+.device-placeholder {
     width: 180px;
-    max-height: 170px;
-    object-fit: contain;
-    position: relative;
-    z-index: 2;
-    filter: drop-shadow(0 0 15px rgba(0,255,100,.25));
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    border: 1px solid rgba(0,255,100,.3);
+    color: #00ff88;
+    font-size: 18px;
+    letter-spacing: 2px;
 }
 
 .device-name {
