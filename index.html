@@ -5,172 +5,342 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>EdgeKWS Monitor</title>
+    <title>EdgeKWS Dashboard</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
+    <!-- TOP NAVIGATION -->
+    <header class="topbar">
 
-        <div class="logo">
-            <span>▥</span>
-            <div>
-                <h2>EDGE<span>KWS</span></h2>
-                <small>ESP32-S3 MONITOR</small>
-            </div>
-        </div>
-
-        <div class="firebase-status">
-            <span class="dot"></span>
-            FIREBASE LIVE
-        </div>
-
-        <nav>
-            <a class="active">◉ &nbsp; MONITOR</a>
-            <a>◇ &nbsp; KWS CORE</a>
-            <a>⇄ &nbsp; CONNECTION</a>
-        </nav>
-
-        <div class="sidebar-bottom">
-            <small>EDGE PROCESSOR</small>
-            <strong>ESP32-S3</strong>
-
-            <small>DATA SOURCE</small>
-            <strong>FIREBASE LIVE</strong>
-        </div>
-
-    </aside>
-
-
-    <!-- MAIN -->
-    <main class="main">
-
-        <!-- HEADER -->
-        <header>
+        <div class="brand">
+            <div class="brand-icon">EK</div>
 
             <div>
-                <small>ULTRA-LOW-POWER KEYWORD SPOTTING</small>
-                <h1>EDGE<span>KWS</span> <b>// ESP32-S3</b></h1>
+                <h1>EDGE<span>//KWS</span></h1>
+                <p>REAL-TIME EDGE ANALYTICS</p>
             </div>
-
-            <div class="device">
-                <small>DEVICE</small>
-                <strong>esp32s3_001</strong>
-                <span class="live">● LIVE</span>
-            </div>
-
-        </header>
-
-
-        <!-- FIREBASE BAR -->
-        <div class="firebase-bar">
-            ● FIREBASE LIVE TELEMETRY
-            <span>Values are read directly from Firebase Realtime Database</span>
         </div>
 
-
-        <!-- TITLE -->
-        <div class="section-title">
+        <div class="connection">
+            <span class="status-dot"></span>
             <div>
-                <small>01 // MAIN ESP32-S3</small>
-                <h2>KEYWORD SPOTTING MONITOR</h2>
+                <strong>FIREBASE</strong>
+                <small>REALTIME DATABASE</small>
             </div>
-
-            <div class="working">WORKING</div>
         </div>
 
+    </header>
 
-        <!-- TOP GRID -->
-        <section class="top-grid">
 
-            <!-- KWS CARD -->
-            <div class="panel kws">
+    <!-- MAIN CONTENT -->
+    <main class="dashboard">
 
-                <div class="panel-header">
-                    LOCAL KWS ENGINE
-                    <span>WORKING</span>
+        <!-- WELCOME -->
+        <section class="intro">
+
+            <div>
+                <p class="label">EDGE DEVICE MONITORING</p>
+
+                <h2>
+                    Keyword Spotting
+                    <span>Dashboard</span>
+                </h2>
+
+                <p class="description">
+                    Live telemetry and performance data from your edge device.
+                </p>
+            </div>
+
+            <div class="live-badge">
+                <span class="status-dot"></span>
+                LIVE
+            </div>
+
+        </section>
+
+
+        <!-- DEVICE + CONFIDENCE -->
+        <section class="hero-grid">
+
+            <!-- DEVICE -->
+            <div class="card device-card">
+
+                <div class="card-title">
+                    <span>DEVICE</span>
+                    <span class="green-text">ONLINE</span>
                 </div>
 
-                <div class="kws-content">
+                <div class="device-content">
 
-                    <div class="mic">
-                        <div>
-                            <small>MIC</small>
-                            <strong>WORKING</strong>
+                    <div class="chip">
+                        ESP
+                    </div>
+
+                    <div>
+                        <h3>ESP32-S3</h3>
+
+                        <p class="device-id">
+                            esp32s3_001
+                        </p>
+
+                        <div class="online-label">
+                            <span class="status-dot"></span>
+                            CONNECTED
                         </div>
                     </div>
 
-                    <div class="kws-data">
+                </div>
 
-                        <small>WAKE PHRASE</small>
-                        <h2>"Wake up Jarvis"</h2>
+                <div class="device-footer">
+                    <span>DATA SOURCE</span>
+                    <strong>Firebase Realtime DB</strong>
+                </div>
 
-                        <div class="confidence-label">
-                            <small>CONFIDENCE</small>
-                            <strong id="confidence">--%</strong>
-                        </div>
+            </div>
 
-                        <div class="progress">
-                            <div id="confidenceBar"></div>
-                        </div>
 
-                        <div class="stats">
+            <!-- CONFIDENCE -->
+            <div class="card confidence-card">
 
-                            <div>
-                                <small>DETECTIONS</small>
-                                <strong id="detections">--</strong>
-                            </div>
+                <div class="card-title">
+                    <span>KEYWORD CONFIDENCE</span>
+                    <span>LIVE SCORE</span>
+                </div>
 
-                            <div>
-                                <small>FALSE ACTIVATIONS</small>
-                                <strong id="falseActivations">--</strong>
-                            </div>
+                <div class="confidence-content">
 
-                            <div>
-                                <small>INFERENCE</small>
-                                <strong id="inference">-- ms</strong>
-                            </div>
+                    <div class="confidence-number">
+                        <strong id="confidence">--</strong>
+                        <span>%</span>
+                    </div>
 
-                            <div>
-                                <small>STATUS</small>
-                                <strong id="status">--</strong>
-                            </div>
+                    <div class="keyword">
+                        Wake word:
+                        <strong>"Wake up Jarvis"</strong>
+                    </div>
 
-                        </div>
+                    <div class="confidence-track">
+                        <div id="confidenceBar"></div>
+                    </div>
 
+                    <div class="scale">
+                        <span>0%</span>
+                        <span>50%</span>
+                        <span>100%</span>
                     </div>
 
                 </div>
 
             </div>
 
+        </section>
 
-            <!-- POWER CARD -->
-            <div class="panel power">
 
-                <div class="panel-header">
-                    POWER MONITOR
-                    <span>EDGE NODE</span>
+        <!-- METRIC CARDS -->
+        <section class="metrics">
+
+            <!-- DETECTIONS -->
+            <div class="metric-card">
+
+                <div class="metric-icon">◎</div>
+
+                <div>
+                    <p>DETECTIONS</p>
+                    <strong id="detections">--</strong>
+                    <small>KEYWORDS DETECTED</small>
                 </div>
 
-                <div class="power-value">
+            </div>
+
+
+            <!-- INFERENCE -->
+            <div class="metric-card">
+
+                <div class="metric-icon">◷</div>
+
+                <div>
+                    <p>INFERENCE</p>
+                    <strong id="inference">--</strong>
+                    <small>MILLISECONDS</small>
+                </div>
+
+            </div>
+
+
+            <!-- POWER -->
+            <div class="metric-card">
+
+                <div class="metric-icon">ϟ</div>
+
+                <div>
+                    <p>POWER</p>
                     <strong id="power">--</strong>
-                    <small>mW</small>
+                    <small>mW CONSUMPTION</small>
                 </div>
 
-                <div class="power-stats">
+            </div>
+
+
+            <!-- VOLTAGE -->
+            <div class="metric-card">
+
+                <div class="metric-icon">V</div>
+
+                <div>
+                    <p>VOLTAGE</p>
+                    <strong id="voltage">--</strong>
+                    <small>SUPPLY VOLTAGE</small>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- LOWER GRID -->
+        <section class="lower-grid">
+
+            <!-- TELEMETRY -->
+            <div class="card telemetry">
+
+                <div class="card-heading">
 
                     <div>
-                        <small>VOLTAGE</small>
-                        <strong id="voltage">-- V</strong>
+                        <p class="label">REAL-TIME DATA</p>
+                        <h3>System Telemetry</h3>
                     </div>
 
+                    <span class="live-text">
+                        ● STREAMING
+                    </span>
+
+                </div>
+
+
+                <div class="telemetry-list">
+
+                    <div class="telemetry-row">
+
+                        <div>
+                            <span class="telemetry-name">CPU UTILIZATION</span>
+                            <span class="telemetry-value" id="cpu">--%</span>
+                        </div>
+
+                        <div class="bar">
+                            <div id="cpuBar"></div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="telemetry-row">
+
+                        <div>
+                            <span class="telemetry-name">RAM USAGE</span>
+                            <span class="telemetry-value">
+                                <span id="ram">--</span> KB
+                            </span>
+                        </div>
+
+                        <div class="bar">
+                            <div id="ramBar"></div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="telemetry-row">
+
+                        <div>
+                            <span class="telemetry-name">CURRENT</span>
+                            <span class="telemetry-value">
+                                <span id="current">--</span> mA
+                            </span>
+                        </div>
+
+                        <div class="bar">
+                            <div id="currentBar"></div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="telemetry-row">
+
+                        <div>
+                            <span class="telemetry-name">FALSE ACTIVATIONS</span>
+                            <span class="telemetry-value" id="falseActivations">
+                                --
+                            </span>
+                        </div>
+
+                        <div class="indicator">
+                            MONITORING
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SYSTEM STATUS -->
+            <div class="card system">
+
+                <div class="card-heading">
+
                     <div>
-                        <small>CURRENT</small>
-                        <strong id="current">-- mA</strong>
+                        <p class="label">SYSTEM</p>
+                        <h3>Device Status</h3>
+                    </div>
+
+                </div>
+
+
+                <div class="system-status">
+
+                    <div class="big-status">
+
+                        <span class="status-dot"></span>
+
+                        <div>
+                            <strong id="status">
+                                --
+                            </strong>
+
+                            <small>
+                                CURRENT DEVICE STATE
+                            </small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="status-line">
+                        <span>DEVICE</span>
+                        <strong>esp32s3_001</strong>
+                    </div>
+
+
+                    <div class="status-line">
+                        <span>DATABASE</span>
+                        <strong class="green-text">CONNECTED</strong>
+                    </div>
+
+
+                    <div class="status-line">
+                        <span>MODE</span>
+                        <strong>LIVE</strong>
+                    </div>
+
+
+                    <div class="status-line">
+                        <span>ENGINE</span>
+                        <strong>EDGE KWS</strong>
                     </div>
 
                 </div>
@@ -180,38 +350,48 @@
         </section>
 
 
-        <!-- BOTTOM CARDS -->
-        <section class="cards">
+        <!-- LAST DATA -->
+        <section class="last-data card">
 
-            <div class="metric">
-                <small>CPU UTILIZATION</small>
-                <strong id="cpu">--%</strong>
-                <div class="mini-bar"></div>
+            <div>
+                <p class="label">LAST UPDATE</p>
+                <strong id="lastUpdate">Waiting for Firebase...</strong>
             </div>
 
-            <div class="metric">
-                <small>APPLICATION RAM</small>
-                <strong id="ram">-- KB</strong>
-                <div class="mini-bar"></div>
+            <div>
+                <p class="label">DATABASE PATH</p>
+                <strong>devices / esp32s3_001 / live</strong>
             </div>
 
-            <div class="metric">
-                <small>KWS LATENCY</small>
-                <strong id="latency">-- ms</strong>
-                <small>LOCAL INFERENCE</small>
-            </div>
-
-            <div class="metric">
-                <small>DEVICE STATUS</small>
-                <strong id="deviceStatus">--</strong>
-                <small>REAL-TIME CONNECTION</small>
+            <div>
+                <p class="label">STATUS</p>
+                <strong class="green-text">REAL-TIME</strong>
             </div>
 
         </section>
+
+
+        <!-- FOOTER -->
+        <footer>
+
+            <span>EDGE//KWS MONITOR</span>
+
+            <span>•</span>
+
+            <span>FIREBASE REALTIME DATABASE</span>
+
+            <span>•</span>
+
+            <span>ESP32-S3</span>
+
+        </footer>
 
     </main>
 
+
+    <!-- FIREBASE JAVASCRIPT -->
     <script type="module" src="app.js"></script>
 
 </body>
+
 </html>
