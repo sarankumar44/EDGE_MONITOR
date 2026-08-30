@@ -1,257 +1,665 @@
+/* =========================================================
+   EDGE//KWS
+   REAL-TIME FIREBASE MONITOR
+   ========================================================= */
+
+
 import { initializeApp }
+
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
+
 import {
+
     getDatabase,
     ref,
     onValue
+
 }
+
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
 
 
-// ===============================
-// FIREBASE CONFIG
-// ===============================
 
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+/* =========================================================
+   FIREBASE CONFIG
+   ========================================================= */
+
 const firebaseConfig = {
-  apiKey: "AIzaSyCFYKUwaU3P0Kb9fiuEbvGWeGys7_S2bKs",
-  authDomain: "edge-kws-project.firebaseapp.com",
-  databaseURL: "https://edge-kws-project-default-rtdb.firebaseio.com",
-  projectId: "edge-kws-project",
-  storageBucket: "edge-kws-project.firebasestorage.app",
-  messagingSenderId: "1022052279122",
-  appId: "1:1022052279122:web:b9aa5789db98526dd9908b",
-  measurementId: "G-8NGL9NFBHL"
+
+    apiKey:
+        "AIzaSyCFYKUwaU3P0Kb9fiuEbvGWeGys7_S2bKs",
+
+    authDomain:
+        "edge-kws-project.firebaseapp.com",
+
+    databaseURL:
+        "https://edge-kws-project-default-rtdb.firebaseio.com",
+
+    projectId:
+        "edge-kws-project",
+
+    storageBucket:
+        "edge-kws-project.firebasestorage.app",
+
+    messagingSenderId:
+        "1022052279122",
+
+    appId:
+        "1:1022052279122:web:b9aa5789db98526dd9908b",
+
+    measurementId:
+        "G-8NGL9NFBHL"
+
 };
 
 
-// ===============================
-// FIREBASE INITIALIZATION
-// ===============================
 
-const app = initializeApp(firebaseConfig);
+/* =========================================================
+   FIREBASE INITIALIZATION
+   ========================================================= */
 
-const db = getDatabase(app);
-
-
-// ===============================
-// DATABASE PATH
-// ===============================
-
-const liveData = ref(
-    db,
-    "devices/esp32s3_001/live"
-);
+const app =
+    initializeApp(firebaseConfig);
 
 
-// ===============================
-// REALTIME LISTENER
-// ===============================
+const db =
+    getDatabase(app);
+
+
+
+/* =========================================================
+   DATABASE PATH
+   ========================================================= */
+
+const liveData =
+
+    ref(
+        db,
+        "devices/esp32s3_001/live"
+    );
+
+
+
+/* =========================================================
+   TELEMETRY HISTORY
+   ========================================================= */
+
+const history = {
+
+    power: [],
+    cpu: [],
+    confidence: []
+
+};
+
+
+const MAX_POINTS = 30;
+
+
+
+/* =========================================================
+   HELPER
+   ========================================================= */
+
+function setText(id, value) {
+
+    const element =
+        document.getElementById(id);
+
+    if (element) {
+
+        element.textContent =
+            value;
+
+    }
+
+}
+
+
+
+/* =========================================================
+   REALTIME FIREBASE LISTENER
+   ========================================================= */
 
 onValue(
+
     liveData,
 
     (snapshot) => {
 
-        const data = snapshot.val();
 
-        console.log("Firebase Data:", data);
+        const data =
+            snapshot.val();
 
+
+        console.log(
+            "Firebase Data:",
+            data
+        );
+
+
+
+        /* =================================================
+           NO DATA
+           ================================================= */
 
         if (!data) {
 
             setOffline();
 
             return;
+
         }
 
 
-        // ===============================
-        // CONNECTION
-        // ===============================
+
+        /* =================================================
+           CONNECTION
+           ================================================= */
+
+        document.body.classList.remove(
+            "offline"
+        );
+
+
+        setText(
+            "connectionText",
+            "FIREBASE CONNECTED"
+        );
+
+
+        setText(
+            "databaseStatus",
+            "CONNECTED"
+        );
+
+
+        setText(
+            "systemState",
+            "SYSTEM ONLINE"
+        );
+
+
+        setText(
+            "welcomeStatus",
+            "ONLINE"
+        );
+
+
+        setText(
+            "statusWorking",
+            "WORKING"
+        );
+
 
         document.getElementById(
-            "connectionText"
-        ).textContent = "CONNECTED";
-
-        document.getElementById(
-            "databaseStatus"
-        ).textContent = "CONNECTED";
-
-        document.getElementById(
-            "systemState"
-        ).textContent = "SYSTEM ONLINE";
-
-        document.getElementById(
-            "consoleStatus"
-        ).innerHTML =
-            "<span>[DATABASE]</span> Realtime telemetry received.";
+            "connectionDot"
+        ).style.background =
+            "#00ff66";
 
 
-        // ===============================
-        // DEVICE STATUS
-        // ===============================
+
+        /* =================================================
+           DEVICE STATUS
+           ================================================= */
 
         const status =
-            data.status ?? "unknown";
-
-        document.getElementById(
-            "deviceStatus"
-        ).textContent =
-            status.toUpperCase();
-
-        document.getElementById(
-            "deviceStatus2"
-        ).textContent =
-            status.toUpperCase();
+            data.status ?? "ONLINE";
 
 
-        // ===============================
-        // CONFIDENCE
-        // ===============================
+        setText(
+            "deviceStatus",
+            status.toUpperCase()
+        );
+
+
+        setText(
+            "deviceStatus2",
+            status.toUpperCase()
+        );
+
+
+        const deviceCard =
+            document.querySelector(
+                ".device-card"
+            );
+
+
+        if (deviceCard) {
+
+            deviceCard.classList.remove(
+                "offline"
+            );
+
+            deviceCard.classList.add(
+                "online"
+            );
+
+        }
+
+
+
+        /* =================================================
+           CONFIDENCE
+           ================================================= */
 
         const confidence =
-            Number(data.confidence ?? 0);
 
-        document.getElementById(
-            "confidence"
-        ).textContent =
-            confidence + "%";
+            Number(
+                data.confidence ?? 0
+            );
 
 
-        document.getElementById(
-            "confidenceBar"
-        ).style.width =
-            Math.min(confidence, 100) + "%";
+        setText(
+            "confidence",
+            confidence + "%"
+        );
 
 
-        // ===============================
-        // DETECTIONS
-        // ===============================
+        const confidenceBar =
+            document.getElementById(
+                "confidenceBar"
+            );
 
-        document.getElementById(
-            "detections"
-        ).textContent =
+
+        if (confidenceBar) {
+
+            confidenceBar.style.width =
+                Math.min(
+                    confidence,
+                    100
+                ) + "%";
+
+        }
+
+
+
+        /* =================================================
+           DETECTIONS
+           ================================================= */
+
+        const detections =
             data.detections ?? 0;
 
 
-        // ===============================
-        // FALSE ACTIVATIONS
-        // ===============================
-
-        document.getElementById(
-            "falseActivations"
-        ).textContent =
-            data.falseActivations ?? 0;
+        setText(
+            "detections",
+            detections
+        );
 
 
-        // ===============================
-        // INFERENCE
-        // ===============================
 
-        document.getElementById(
-            "inference"
-        ).textContent =
-            (data.inferenceMs ?? "--") + " ms";
+        /* =================================================
+           FALSE ACTIVATIONS
+           ================================================= */
+
+        const falseActivations =
+            Number(
+                data.falseActivations ?? 0
+            );
 
 
-        // ===============================
-        // POWER
-        // ===============================
+        setText(
+            "falseActivations",
+            falseActivations
+        );
+
+
+        setText(
+            "falseResource",
+            falseActivations
+        );
+
+
+
+        /* =================================================
+           INFERENCE
+           ================================================= */
+
+        const inference =
+            data.inferenceMs ?? "--";
+
+
+        setText(
+            "inference",
+            inference + " ms"
+        );
+
+
+
+        /* =================================================
+           PHRASE
+           ================================================= */
+
+        const phrase =
+
+            data.phrase ??
+            data.keyword ??
+            data.detectedPhrase ??
+            "Dear Folk";
+
+
+        setText(
+            "detectedPhrase",
+            '"' + phrase + '"'
+        );
+
+
+        /* =================================================
+           ASSISTANT MESSAGE
+           ================================================= */
+
+        if (
+            data.keyword ||
+            data.phrase ||
+            data.detectedPhrase
+        ) {
+
+            setText(
+                "assistantMessage",
+                "Keyword detected: " +
+                phrase
+            );
+
+            setText(
+                "listeningText",
+                "KEYWORD DETECTED"
+            );
+
+        }
+
+
+
+        /* =================================================
+           POWER
+           ================================================= */
 
         const power =
-            Number(data.power ?? 0);
-
-        document.getElementById(
-            "power"
-        ).textContent =
-            power;
+            Number(
+                data.power ?? 0
+            );
 
 
-        document.getElementById(
-            "powerValue"
-        ).textContent =
-            power + " mW";
+        setText(
+            "power",
+            power
+        );
 
 
-        // ===============================
-        // VOLTAGE
-        // ===============================
+        setText(
+            "powerValue",
+            power + " mW"
+        );
 
-        document.getElementById(
-            "voltage"
-        ).textContent =
+
+        setText(
+            "holoPower",
+            power + " mW"
+        );
+
+
+        const powerBar =
+            document.getElementById(
+                "powerBar"
+            );
+
+
+        if (powerBar) {
+
+            powerBar.style.width =
+
+                Math.min(
+                    (power / 500) * 100,
+                    100
+                ) + "%";
+
+        }
+
+
+
+        /* =================================================
+           VOLTAGE
+           ================================================= */
+
+        const voltage =
             data.voltage ?? "--";
 
 
-        // ===============================
-        // CURRENT
-        // ===============================
-
-        document.getElementById(
-            "current"
-        ).textContent =
-            data.current ?? "--";
+        setText(
+            "voltage",
+            voltage
+        );
 
 
-        // ===============================
-        // CPU
-        // ===============================
+        setText(
+            "holoVoltage",
+            voltage + " V"
+        );
+
+
+
+        /* =================================================
+           CURRENT
+           ================================================= */
+
+        const current =
+            Number(
+                data.current ?? 0
+            );
+
+
+        setText(
+            "current",
+            current
+        );
+
+
+        setText(
+            "holoCurrent",
+            current + " mA"
+        );
+
+
+        setText(
+            "currentResource",
+            current + " mA"
+        );
+
+
+        const currentBar =
+            document.getElementById(
+                "currentBar"
+            );
+
+
+        if (currentBar) {
+
+            currentBar.style.width =
+
+                Math.min(
+                    (current / 20) * 100,
+                    100
+                ) + "%";
+
+        }
+
+
+
+        /* =================================================
+           CPU
+           ================================================= */
 
         const cpu =
-            Number(data.cpu ?? 0);
-
-        document.getElementById(
-            "cpu"
-        ).textContent =
-            cpu;
+            Number(
+                data.cpu ?? 0
+            );
 
 
-        document.getElementById(
-            "cpuValue"
-        ).textContent =
-            cpu + "%";
+        setText(
+            "cpu",
+            cpu
+        );
 
 
-        document.getElementById(
-            "cpuBar"
-        ).style.width =
-            Math.min(cpu, 100) + "%";
+        setText(
+            "cpuValue",
+            cpu + "%"
+        );
 
 
-        // ===============================
-        // RAM
-        // ===============================
+        setText(
+            "holoCpu",
+            cpu + " %"
+        );
+
+
+        const cpuBar =
+            document.getElementById(
+                "cpuBar"
+            );
+
+
+        if (cpuBar) {
+
+            cpuBar.style.width =
+
+                Math.min(
+                    cpu,
+                    100
+                ) + "%";
+
+        }
+
+
+
+        /* =================================================
+           RAM
+           ================================================= */
 
         const ram =
-            Number(data.ram ?? 0);
-
-        document.getElementById(
-            "ram"
-        ).textContent =
-            ram + " KB";
+            Number(
+                data.ram ?? 0
+            );
 
 
-        // Just a visual scale
-        // Change 256 if your target RAM is different
-
-        document.getElementById(
-            "ramBar"
-        ).style.width =
-            Math.min((ram / 256) * 100, 100) + "%";
+        setText(
+            "ram",
+            ram + " KB"
+        );
 
 
-        // ===============================
-        // POWER BAR
-        // ===============================
+        const ramBar =
+            document.getElementById(
+                "ramBar"
+            );
 
-        document.getElementById(
-            "powerBar"
-        ).style.width =
-            Math.min((power / 500) * 100, 100) + "%";
+
+        if (ramBar) {
+
+            ramBar.style.width =
+
+                Math.min(
+                    (ram / 256) * 100,
+                    100
+                ) + "%";
+
+        }
+
+
+
+        /* =================================================
+           TEMPERATURE
+           ================================================= */
+
+        const temperature =
+
+            Number(
+                data.temperature ??
+                data.temp ??
+                0
+            );
+
+
+        if (temperature > 0) {
+
+            setText(
+                "temperatureValue",
+                temperature
+            );
+
+            setText(
+                "deviceTemp",
+                temperature + "°"
+            );
+
+        }
+
+
+
+        /* =================================================
+           LAST EVENT
+           ================================================= */
+
+        const eventTime =
+
+            data.timestamp ??
+            data.lastEvent ??
+            new Date().toLocaleTimeString();
+
+
+        setText(
+            "lastEvent",
+            String(eventTime)
+        );
+
+
+
+        /* =================================================
+           UPDATE TELEMETRY HISTORY
+           ================================================= */
+
+        addHistory(
+            history.power,
+            power
+        );
+
+
+        addHistory(
+            history.cpu,
+            cpu
+        );
+
+
+        addHistory(
+            history.confidence,
+            confidence
+        );
+
+
+        drawChart();
+
+
+
+        /* =================================================
+           CONSOLE
+           ================================================= */
+
+        updateConsole(
+
+            status,
+            confidence,
+            inference,
+            power,
+            voltage
+        );
 
     },
+
+
+    /* =====================================================
+       FIREBASE ERROR
+       ===================================================== */
 
     (error) => {
 
@@ -261,63 +669,596 @@ onValue(
         );
 
         setOffline();
+
     }
+
 );
 
 
-// ===============================
-// OFFLINE STATE
-// ===============================
+
+/* =========================================================
+   HISTORY
+   ========================================================= */
+
+function addHistory(
+    array,
+    value
+) {
+
+    array.push(
+        Number(value) || 0
+    );
+
+
+    if (
+        array.length >
+        MAX_POINTS
+    ) {
+
+        array.shift();
+
+    }
+
+}
+
+
+
+/* =========================================================
+   OFFLINE
+   ========================================================= */
 
 function setOffline() {
 
-    document.getElementById(
-        "connectionText"
-    ).textContent =
-        "OFFLINE";
 
-    document.getElementById(
-        "databaseStatus"
-    ).textContent =
-        "OFFLINE";
+    document.body.classList.add(
+        "offline"
+    );
 
-    document.getElementById(
-        "deviceStatus"
-    ).textContent =
-        "OFFLINE";
 
-    document.getElementById(
-        "systemState"
-    ).textContent =
-        "DATABASE OFFLINE";
+    setText(
+        "connectionText",
+        "OFFLINE"
+    );
+
+
+    setText(
+        "databaseStatus",
+        "OFFLINE"
+    );
+
+
+    setText(
+        "deviceStatus",
+        "OFFLINE"
+    );
+
+
+    setText(
+        "deviceStatus2",
+        "OFFLINE"
+    );
+
+
+    setText(
+        "statusWorking",
+        "WAITING"
+    );
+
+
+    setText(
+        "systemState",
+        "DATABASE OFFLINE"
+    );
+
+
+    setText(
+        "welcomeStatus",
+        "OFFLINE"
+    );
+
+
+    setText(
+        "listeningText",
+        "WAITING FOR DEVICE"
+    );
+
+
+    const dot =
+        document.getElementById(
+            "connectionDot"
+        );
+
+
+    if (dot) {
+
+        dot.style.background =
+            "#ff3650";
+
+    }
+
+
+    const deviceCard =
+        document.querySelector(
+            ".device-card"
+        );
+
+
+    if (deviceCard) {
+
+        deviceCard.classList.remove(
+            "online"
+        );
+
+        deviceCard.classList.add(
+            "offline"
+        );
+
+    }
 
 }
 
 
-// ===============================
-// DIGITAL CLOCK
-// ===============================
+
+/* =========================================================
+   CONSOLE
+   ========================================================= */
+
+function updateConsole(
+    status,
+    confidence,
+    inference,
+    power,
+    voltage
+) {
+
+
+    const consoleBox =
+        document.getElementById(
+            "console"
+        );
+
+
+    if (!consoleBox) {
+
+        return;
+
+    }
+
+
+    const time =
+        new Date().toLocaleTimeString();
+
+
+    consoleBox.innerHTML = `
+
+        <p>
+            <span>[SYSTEM]</span>
+            Edge KWS initialized...
+        </p>
+
+        <p>
+            <span>[DEVICE]</span>
+            ESP32 XIAO S3 →
+            ${status}
+        </p>
+
+        <p>
+            <span>[DATABASE]</span>
+            Realtime telemetry received.
+        </p>
+
+        <p>
+            <span>[KWS]</span>
+            Confidence:
+            ${confidence}%
+        </p>
+
+        <p>
+            <span>[KWS]</span>
+            Inference:
+            ${inference} ms
+        </p>
+
+        <p>
+            <span>[POWER]</span>
+            ${power} mW
+        </p>
+
+        <p>
+            <span>[VOLTAGE]</span>
+            ${voltage} V
+        </p>
+
+        <p>
+            <span>[TIME]</span>
+            ${time}
+        </p>
+
+    `;
+
+}
+
+
+
+/* =========================================================
+   CLOCK
+   ========================================================= */
 
 function updateClock() {
 
-    const now = new Date();
+
+    const now =
+        new Date();
+
 
     const hours =
-        String(now.getHours()).padStart(2, "0");
+        String(
+            now.getHours()
+        ).padStart(2, "0");
+
 
     const minutes =
-        String(now.getMinutes()).padStart(2, "0");
+        String(
+            now.getMinutes()
+        ).padStart(2, "0");
+
 
     const seconds =
-        String(now.getSeconds()).padStart(2, "0");
+        String(
+            now.getSeconds()
+        ).padStart(2, "0");
 
-    document.getElementById(
-        "clock"
-    ).textContent =
-        `${hours}:${minutes}:${seconds}`;
+
+    setText(
+        "clock",
+        `${hours}:${minutes}:${seconds}`
+    );
+
+
+    setText(
+        "date",
+
+        now.toLocaleDateString(
+            "en-GB",
+            {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            }
+        ).toUpperCase()
+
+    );
+
 }
 
 
-setInterval(updateClock, 1000);
+setInterval(
+    updateClock,
+    1000
+);
+
 
 updateClock();
+
+
+
+/* =========================================================
+   TELEMETRY CANVAS
+   ========================================================= */
+
+function drawChart() {
+
+
+    const canvas =
+        document.getElementById(
+            "telemetryChart"
+        );
+
+
+    if (!canvas) {
+
+        return;
+
+    }
+
+
+    const rect =
+        canvas.getBoundingClientRect();
+
+
+    if (
+        rect.width === 0 ||
+        rect.height === 0
+    ) {
+
+        return;
+
+    }
+
+
+    const dpr =
+        window.devicePixelRatio || 1;
+
+
+    canvas.width =
+        rect.width * dpr;
+
+
+    canvas.height =
+        rect.height * dpr;
+
+
+    const ctx =
+        canvas.getContext("2d");
+
+
+    ctx.scale(
+        dpr,
+        dpr
+    );
+
+
+    const width =
+        rect.width;
+
+
+    const height =
+        rect.height;
+
+
+    /* BACKGROUND */
+
+    ctx.clearRect(
+        0,
+        0,
+        width,
+        height
+    );
+
+
+    /* GRID */
+
+    ctx.strokeStyle =
+        "rgba(0,210,255,.10)";
+
+    ctx.lineWidth = 1;
+
+
+    for (
+        let i = 0;
+        i <= 5;
+        i++
+    ) {
+
+        const y =
+            15 +
+            (
+                (height - 35)
+                / 5
+            ) * i;
+
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            35,
+            y
+        );
+
+        ctx.lineTo(
+            width - 10,
+            y
+        );
+
+        ctx.stroke();
+
+    }
+
+
+    /* Y LABELS */
+
+    ctx.fillStyle =
+        "#4c6872";
+
+    ctx.font =
+        "8px monospace";
+
+
+    for (
+        let i = 0;
+        i <= 5;
+        i++
+    ) {
+
+        const value =
+            100 -
+            i * 20;
+
+
+        const y =
+            18 +
+            (
+                (height - 35)
+                / 5
+            ) * i;
+
+
+        ctx.fillText(
+            value,
+            5,
+            y
+        );
+
+    }
+
+
+    drawLine(
+        ctx,
+        history.power,
+        width,
+        height,
+        "#ff3650"
+    );
+
+
+    drawLine(
+        ctx,
+        history.cpu,
+        width,
+        height,
+        "#00d9ff"
+    );
+
+
+    drawLine(
+        ctx,
+        history.confidence,
+        width,
+        height,
+        "#00ff66"
+    );
+
+}
+
+
+
+/* =========================================================
+   DRAW LINE
+   ========================================================= */
+
+function drawLine(
+    ctx,
+    values,
+    width,
+    height,
+    color
+) {
+
+
+    if (
+        values.length < 1
+    ) {
+
+        return;
+
+    }
+
+
+    const left = 35;
+
+    const right = 10;
+
+    const top = 15;
+
+    const bottom = 20;
+
+
+    const chartWidth =
+        width -
+        left -
+        right;
+
+
+    const chartHeight =
+        height -
+        top -
+        bottom;
+
+
+    ctx.beginPath();
+
+
+    values.forEach(
+        (value, index) => {
+
+
+            const x =
+
+                left +
+
+                (
+                    index /
+                    Math.max(
+                        values.length - 1,
+                        1
+                    )
+                ) *
+
+                chartWidth;
+
+
+            const normalized =
+
+                Math.max(
+                    0,
+                    Math.min(
+                        100,
+                        Number(value)
+                    )
+                );
+
+
+            const y =
+
+                top +
+
+                chartHeight *
+
+                (
+                    1 -
+                    normalized / 100
+                );
+
+
+            if (index === 0) {
+
+                ctx.moveTo(
+                    x,
+                    y
+                );
+
+            } else {
+
+                ctx.lineTo(
+                    x,
+                    y
+                );
+
+            }
+
+        }
+    );
+
+
+    ctx.strokeStyle =
+        color;
+
+    ctx.lineWidth = 2;
+
+    ctx.shadowBlur = 7;
+
+    ctx.shadowColor =
+        color;
+
+    ctx.stroke();
+
+    ctx.shadowBlur = 0;
+
+}
+
+
+
+/* =========================================================
+   REDRAW CHART ON RESIZE
+   ========================================================= */
+
+window.addEventListener(
+    "resize",
+    drawChart
+);
+
+
+setTimeout(
+    drawChart,
+    500
+);
