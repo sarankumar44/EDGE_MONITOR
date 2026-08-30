@@ -2676,3 +2676,142 @@ body.offline .firebase-box i {
     }
 
 }
+/* =========================================
+   LARGER & CLEARER DASHBOARD FONT
+   ========================================= */
+
+/* Main EDGEKWS title */
+.logo,
+.logo-text,
+.brand-title {
+    font-size: 42px !important;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+/* Section/card headings */
+.card-header {
+    font-size: 16px !important;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.card-header strong {
+    font-size: 14px !important;
+}
+
+/* Main detected phrase */
+.detected-phrase,
+.phrase {
+    font-size: 25px !important;
+    font-weight: 700;
+}
+
+/* Confidence */
+.confidence-value,
+.confidence-number {
+    font-size: 30px !important;
+    font-weight: 700;
+}
+
+/* Device name */
+.device-name {
+    font-size: 21px !important;
+    font-weight: 700;
+}
+
+/* Device subtitle */
+.device-subtitle {
+    font-size: 13px !important;
+    letter-spacing: 1px;
+}
+
+/* Device ID */
+.device-id {
+    font-size: 13px !important;
+}
+
+.device-id strong {
+    font-size: 13px !important;
+}
+
+/* Digital Twin center text */
+.device-placeholder {
+    font-size: 17px !important;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+/* Telemetry labels */
+.telemetry-label,
+.metric-label {
+    font-size: 13px !important;
+}
+
+/* Telemetry values */
+.telemetry-value,
+.metric-value {
+    font-size: 24px !important;
+    font-weight: 700;
+}
+
+/* Units */
+.metric-unit,
+.telemetry-unit {
+    font-size: 12px !important;
+}
+
+/* System status */
+.status-row {
+    font-size: 14px !important;
+}
+
+.status-row strong {
+    font-size: 14px !important;
+}
+
+/* Resource usage */
+.resource-label {
+    font-size: 13px !important;
+}
+
+.resource-value {
+    font-size: 15px !important;
+    font-weight: 600;
+}
+
+/* Console */
+.console {
+    font-size: 13px !important;
+}
+
+.console-line {
+    font-size: 13px !important;
+    line-height: 1.8;
+}
+
+/* Top status */
+.database-status {
+    font-size: 15px !important;
+}
+
+.clock {
+    font-size: 19px !important;
+    font-weight: 700;
+}
+
+/* Waveform / detection information */
+.detection-info {
+    font-size: 14px !important;
+}
+
+/* General dashboard text */
+.card p {
+    font-size: 13px;
+}
+
+/* Make labels easier to read */
+label,
+span {
+    line-height: 1.4;
+}
