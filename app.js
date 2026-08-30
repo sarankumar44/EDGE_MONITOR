@@ -1262,3 +1262,62 @@ setTimeout(
     drawChart,
     500
 );
+/* =========================================================
+   SIDEBAR NAVIGATION
+   ========================================================= */
+
+const navItems = document.querySelectorAll(".nav-item");
+
+navItems.forEach(item => {
+
+    item.addEventListener("click", () => {
+
+        const page = item.dataset.page;
+
+        /* Remove active from all */
+        navItems.forEach(nav => {
+            nav.classList.remove("active");
+        });
+
+        /* Activate selected */
+        item.classList.add("active");
+
+        /* Open selected page */
+        openSidebarPage(page);
+
+    });
+
+});
+
+
+function openSidebarPage(page) {
+
+    switch (page) {
+
+        case "dashboard":
+            showDashboard();
+            break;
+
+        case "voice":
+            showVoiceAnalytics();
+            break;
+
+        case "telemetry":
+            showTelemetry();
+            break;
+
+        case "device":
+            showDeviceInfo();
+            break;
+
+        case "logs":
+            showSystemLogs();
+            break;
+
+        case "settings":
+            showSettings();
+            break;
+
+    }
+
+}
