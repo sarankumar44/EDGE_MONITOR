@@ -657,7 +657,593 @@ footer span {
     .console-card {
         grid-column: span 1;
     }
+/* =========================================================
+   EDGE DEVICE DIGITAL TWIN
+   ========================================================= */
 
+.device-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 520px;
+    background:
+        radial-gradient(
+            circle at 50% 38%,
+            rgba(0,255,100,.07),
+            transparent 42%
+        ),
+        rgba(3,10,5,.94);
+}
+
+
+/* DEVICE TWIN AREA */
+
+.device-twin {
+    height: 270px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   ORBIT RINGS
+   ========================================================= */
+
+.device-orbit {
+    position: absolute;
+    border: 1px solid rgba(0,255,100,.16);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.orbit-1 {
+    width: 220px;
+    height: 220px;
+    animation: orbitPulse 3s infinite ease-in-out;
+}
+
+.orbit-2 {
+    width: 175px;
+    height: 175px;
+    border-style: dashed;
+    animation: orbitRotate 12s linear infinite;
+}
+
+@keyframes orbitPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: .45;
+    }
+
+    50% {
+        transform: scale(1.08);
+        opacity: .8;
+    }
+}
+
+@keyframes orbitRotate {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   ESP32 CHIP
+   ========================================================= */
+
+.esp-chip {
+    width: 205px;
+    height: 125px;
+    position: relative;
+    z-index: 5;
+
+    border: 1px solid #00ff66;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0,255,100,.08),
+            rgba(0,20,10,.96)
+        );
+
+    box-shadow:
+        0 0 25px rgba(0,255,100,.14),
+        inset 0 0 25px rgba(0,255,100,.04);
+
+    clip-path: polygon(
+        8px 0,
+        calc(100% - 8px) 0,
+        100% 8px,
+        100% calc(100% - 8px),
+        calc(100% - 8px) 100%,
+        8px 100%,
+        0 calc(100% - 8px),
+        0 8px
+    );
+}
+
+
+/* CHIP HEADER */
+
+.chip-top {
+    display: flex;
+    justify-content: space-between;
+    padding: 9px 12px;
+
+    border-bottom: 1px solid rgba(0,255,100,.15);
+
+    color: #4f8c68;
+    font-size: 7px;
+    letter-spacing: 1.5px;
+}
+
+.chip-live {
+    color: #00ff66;
+}
+
+.chip-live i {
+    display: inline-block;
+
+    width: 5px;
+    height: 5px;
+
+    margin-right: 4px;
+
+    border-radius: 50%;
+    background: #00ff66;
+
+    box-shadow: 0 0 8px #00ff66;
+
+    animation: liveBlink 1s infinite;
+}
+
+@keyframes liveBlink {
+
+    50% {
+        opacity: .25;
+    }
+}
+
+
+/* CHIP BODY */
+
+.chip-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    height: 70px;
+}
+
+
+.chip-logo {
+
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #00ff66;
+
+    color: #00ff66;
+
+    font-family: monospace;
+    font-size: 20px;
+
+    box-shadow:
+        0 0 15px rgba(0,255,100,.15);
+}
+
+
+.chip-name {
+
+    color: #b9d8c5;
+
+    font-size: 14px;
+
+    letter-spacing: 1px;
+}
+
+.chip-name strong {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #00ff66;
+
+    font-size: 17px;
+}
+
+
+/* CHIP FOOTER */
+
+.chip-bottom {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 7px 12px;
+
+    border-top: 1px solid rgba(0,255,100,.15);
+
+    color: #41694f;
+
+    font-size: 6px;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   CHIP PINS
+   ========================================================= */
+
+.chip-pins {
+    position: absolute;
+
+    top: 42px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.left-pins {
+    left: -5px;
+}
+
+.right-pins {
+    right: -5px;
+}
+
+.chip-pins i {
+
+    width: 9px;
+    height: 2px;
+
+    background: #00ff66;
+
+    box-shadow: 0 0 5px rgba(0,255,100,.7);
+}
+
+
+/* =========================================================
+   DEVICE NODES
+   ========================================================= */
+
+.device-node {
+
+    position: absolute;
+
+    z-index: 6;
+
+    width: 70px;
+
+    text-align: center;
+
+    padding: 8px 4px;
+
+    border: 1px solid #123d24;
+
+    background: rgba(3,12,6,.95);
+
+    box-shadow: 0 0 15px rgba(0,255,100,.04);
+}
+
+
+.device-node strong {
+
+    display: block;
+
+    margin-top: 5px;
+
+    color: #00ff66;
+
+    font-size: 7px;
+
+    letter-spacing: 1px;
+}
+
+
+.device-node small {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color: #496b57;
+
+    font-size: 5px;
+
+    letter-spacing: .5px;
+}
+
+
+.node-icon {
+
+    color: #00ff66;
+
+    font-size: 16px;
+}
+
+
+.mic-node {
+    left: 25px;
+}
+
+.cloud-node {
+    right: 25px;
+}
+
+
+/* =========================================================
+   DATA FLOW
+   ========================================================= */
+
+.flow {
+
+    position: absolute;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    z-index: 2;
+}
+
+
+.flow-left {
+    left: 87px;
+}
+
+
+.flow-right {
+    right: 87px;
+}
+
+
+.flow span {
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: #00ff66;
+
+    box-shadow: 0 0 8px #00ff66;
+
+    animation: dataFlow 1.4s infinite linear;
+}
+
+
+.flow span:nth-child(2) {
+    animation-delay: .35s;
+}
+
+.flow span:nth-child(3) {
+    animation-delay: .7s;
+}
+
+
+@keyframes dataFlow {
+
+    0% {
+        opacity: 0;
+        transform: translateX(-8px);
+    }
+
+    40% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(8px);
+    }
+}
+
+
+/* =========================================================
+   DEVICE INFO
+   ========================================================= */
+
+.device-info-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    border-top: 1px solid #12351f;
+
+    border-bottom: 1px solid #12351f;
+}
+
+
+.device-info {
+
+    padding: 10px;
+
+    border-right: 1px solid #12351f;
+
+    text-align: left;
+}
+
+
+.device-info:last-child {
+    border-right: none;
+}
+
+
+.device-info small {
+
+    display: block;
+
+    color: #466953;
+
+    font-size: 6px;
+
+    letter-spacing: 1px;
+}
+
+
+.device-info strong {
+
+    display: block;
+
+    margin-top: 5px;
+
+    color: #b8d7c2;
+
+    font-family: monospace;
+
+    font-size: 8px;
+}
+
+
+/* =========================================================
+   DEVICE HEALTH
+   ========================================================= */
+
+.device-health {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 12px;
+
+    padding: 14px 18px;
+}
+
+
+.health-item > div:first-child {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 6px;
+}
+
+
+.health-item span {
+
+    color: #537261;
+
+    font-size: 7px;
+}
+
+
+.health-item strong {
+
+    color: #00ff66;
+
+    font-family: monospace;
+
+    font-size: 7px;
+}
+
+
+.health-bar {
+
+    height: 4px;
+
+    background: #0a1f13;
+
+    overflow: hidden;
+}
+
+
+.health-bar span {
+
+    display: block;
+
+    width: 0%;
+
+    height: 100%;
+
+    background: #00ff66;
+
+    box-shadow: 0 0 8px #00ff66;
+
+    transition: width .5s ease;
+}
+
+
+/* =========================================================
+   DEVICE ONLINE STATE
+   ========================================================= */
+
+.device-card.online {
+
+    border-color: rgba(0,255,100,.5);
+
+    box-shadow:
+        0 0 25px rgba(0,255,100,.06),
+        inset 0 0 30px rgba(0,255,100,.015);
+}
+
+
+.device-card.offline {
+
+    filter: saturate(.45);
+}
+
+
+/* MOBILE */
+
+@media(max-width: 700px) {
+
+    .device-info-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .device-info:nth-child(2) {
+        border-right: none;
+    }
+
+    .device-health {
+        grid-template-columns: 1fr;
+    }
+
+    .mic-node {
+        left: 5px;
+    }
+
+    .cloud-node {
+        right: 5px;
+    }
+
+    .flow-left {
+        left: 65px;
+    }
+
+    .flow-right {
+        right: 65px;
+    }
+}
     .connection {
         display: none;
     }
