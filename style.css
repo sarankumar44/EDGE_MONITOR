@@ -2815,3 +2815,264 @@ label,
 span {
     line-height: 1.4;
 }
+/* =========================================================
+   EDGEKWS - FINAL FONT SIZE IMPROVEMENT
+   ========================================================= */
+
+/* ---------- SIDEBAR ---------- */
+
+.brand h1 {
+    font-size: 25px !important;
+    letter-spacing: 3px;
+}
+
+.brand p {
+    font-size: 10px !important;
+    letter-spacing: 2px;
+}
+
+nav a {
+    font-size: 13px !important;
+    padding: 15px 12px !important;
+    letter-spacing: 1px;
+}
+
+nav a span {
+    width: 28px !important;
+    font-size: 17px !important;
+}
+
+.sidebar-device strong {
+    font-size: 10px !important;
+}
+
+.sidebar-device small {
+    font-size: 8px !important;
+}
+
+.sidebar-temp small {
+    font-size: 8px !important;
+}
+
+.sidebar-temp strong {
+    font-size: 15px !important;
+}
+
+.sidebar-temp p {
+    font-size: 8px !important;
+}
+
+.power-mode small {
+    font-size: 8px !important;
+}
+
+.power-mode strong {
+    font-size: 12px !important;
+}
+
+.sidebar-footer {
+    font-size: 8px !important;
+}
+
+
+/* ---------- TOP HEADER ---------- */
+
+.eyebrow {
+    font-size: 9px !important;
+}
+
+.topbar h2 {
+    font-size: 42px !important;
+    letter-spacing: 3px;
+}
+
+.subtitle {
+    font-size: 11px !important;
+    letter-spacing: 2px;
+}
+
+.firebase-box strong {
+    font-size: 11px !important;
+}
+
+.firebase-box small {
+    font-size: 8px !important;
+}
+
+.clock-box strong {
+    font-size: 20px !important;
+}
+
+.clock-box small {
+    font-size: 8px !important;
+}
+
+
+/* ---------- WELCOME ---------- */
+
+.welcome-panel small {
+    font-size: 9px !important;
+    letter-spacing: 2px;
+}
+
+.welcome-panel h3 {
+    font-size: 20px !important;
+}
+
+.welcome-panel p {
+    font-size: 11px !important;
+}
+
+.system-online strong {
+    font-size: 10px !important;
+}
+
+
+/* ---------- ALL PANEL HEADERS ---------- */
+
+.panel-header {
+    font-size: 13px !important;
+    letter-spacing: 1px;
+}
+
+.panel-header strong {
+    font-size: 11px !important;
+}
+
+
+/* ---------- WAKE WORD ---------- */
+
+.wake-details > small {
+    font-size: 8px !important;
+}
+
+.wake-details h3 {
+    font-size: 25px !important;
+}
+
+.confidence-inner strong {
+    font-size: 30px !important;
+}
+
+.confidence-inner small {
+    font-size: 8px !important;
+}
+
+.wake-stats small {
+    font-size: 7px !important;
+}
+
+.wake-stats strong {
+    font-size: 14px !important;
+}
+
+
+/* ---------- DEVICE HOLOGRAM ---------- */
+
+.device-hud small {
+    font-size: 7px !important;
+}
+
+.device-hud strong {
+    font-size: 9px !important;
+}
+
+.holo-name strong {
+    font-size: 14px !important;
+}
+
+.holo-name small {
+    font-size: 7px !important;
+}
+
+.device-info small {
+    font-size: 7px !important;
+}
+
+.device-info strong {
+    font-size: 9px !important;
+}
+
+
+/* ---------- LIVE METRICS ---------- */
+
+.metric-card > small {
+    font-size: 8px !important;
+    letter-spacing: 1px;
+}
+
+.metric-circle span {
+    font-size: 13px !important;
+}
+
+.metric-circle strong {
+    font-size: 21px !important;
+}
+
+.metric-circle em {
+    font-size: 8px !important;
+}
+
+
+/* ---------- SYSTEM STATUS ---------- */
+
+.status-row {
+    font-size: 11px !important;
+}
+
+.status-row strong {
+    font-size: 11px !important;
+}
+
+.status-row small {
+    font-size: 8px !important;
+}
+
+
+/* ---------- RESOURCE USAGE ---------- */
+
+.resource-item span {
+    font-size: 9px !important;
+}
+
+.resource-item strong {
+    font-size: 12px !important;
+}
+
+
+/* ---------- CONSOLE ---------- */
+
+.console {
+    font-size: 10px !important;
+}
+
+.console p {
+    font-size: 10px !important;
+    line-height: 1.8 !important;
+}
+
+
+/* ---------- VOICE ASSISTANT ---------- */
+
+.voice-status {
+    font-size: 10px !important;
+}
+
+.voice-message {
+    font-size: 11px !important;
+}
+
+
+/* ---------- GENERAL ---------- */
+
+.panel p {
+    font-size: 10px;
+}
+
+.panel small {
+    line-height: 1.5;
+}
+
+strong {
+    line-height: 1.4;
+}
