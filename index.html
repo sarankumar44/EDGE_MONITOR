@@ -1,67 +1,351 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Edge KWS Monitor</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="style.css">
+    <title>EDGE//KWS Monitor</title>
+
+    <link rel="stylesheet"
+          href="style.css">
+
 </head>
+
 
 <body>
 
+
 <div class="app">
 
-    <!-- MAIN -->
-    <main class="main">
 
-        <!-- TOP BAR -->
-        <header class="topbar">
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="sidebar">
+
+
+        <!-- LOGO -->
+
+        <div class="brand">
+
+            <div class="brand-orb">
+
+                <div class="orb-core"></div>
+
+            </div>
+
+            <h1>
+                F.R.I.D.A.Y
+            </h1>
+
+            <p>
+                AI EDGE ASSISTANT
+            </p>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <nav>
+
+            <a class="active">
+
+                <span>⌂</span>
+
+                DASHBOARD
+
+            </a>
+
+
+            <a>
+
+                <span>≋</span>
+
+                VOICE ANALYTICS
+
+            </a>
+
+
+            <a>
+
+                <span>⌁</span>
+
+                LIVE TELEMETRY
+
+            </a>
+
+
+            <a>
+
+                <span>▣</span>
+
+                DEVICE INFO
+
+            </a>
+
+
+            <a>
+
+                <span>▤</span>
+
+                SYSTEM LOGS
+
+            </a>
+
+
+            <a>
+
+                <span>⚙</span>
+
+                SETTINGS
+
+            </a>
+
+        </nav>
+
+
+        <!-- DEVICE MINI CARD -->
+
+        <div class="sidebar-device">
+
+            <div class="mini-chip">
+
+                <span>ESP32</span>
+
+            </div>
 
             <div>
+
+                <strong>
+                    ESP32 XIAO S3
+                </strong>
+
+                <small>
+                    Tiny • Powerful • Efficient
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- TEMPERATURE -->
+
+        <div class="sidebar-temp">
+
+            <div class="temp-circle">
+
+                <span id="deviceTemp">
+                    --°
+                </span>
+
+            </div>
+
+            <div>
+
+                <small>
+                    TEMPERATURE
+                </small>
+
+                <strong>
+                    <span id="temperatureValue">
+                        --
+                    </span>°C
+                </strong>
+
+                <p>
+                    NORMAL
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- POWER MODE -->
+
+        <div class="power-mode">
+
+            <span>
+                ◒
+            </span>
+
+            <div>
+
+                <small>
+                    POWER MODE
+                </small>
+
+                <strong>
+                    ULTRA LOW
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="sidebar-footer">
+
+            <strong>
+                ◈
+            </strong>
+
+            <span>
+                ENGINEERED FOR<br>
+                EDGE INTELLIGENCE
+            </span>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main class="main">
+
+
+        <!-- =================================================
+             TOP BAR
+             ================================================= -->
+
+        <header class="topbar">
+
+
+            <div>
+
                 <p class="eyebrow">
                     ARTIFICIAL INTELLIGENCE // EDGE COMPUTING
                 </p>
 
-                <h2>EDGE<span>KWS</span></h2>
+                <h2>
+                    EDGE<span>//KWS</span>
+                </h2>
+
+                <p class="subtitle">
+                    AI KEYWORD SPOTTING • ESP32 XIAO S3
+                </p>
+
             </div>
 
-            <div class="connection">
 
-                <div class="connection-status">
-                    <span id="connectionDot"></span>
+            <div class="top-right">
+
+
+                <!-- FIREBASE -->
+
+                <div class="firebase-box">
+
+                    <span class="firebase-icon">
+                        F
+                    </span>
 
                     <div>
+
                         <strong id="connectionText">
                             CONNECTING
                         </strong>
 
                         <small>
-                            FIREBASE REALTIME DATABASE
+                            REALTIME DATABASE
                         </small>
+
                     </div>
+
+                    <i id="connectionDot"></i>
+
                 </div>
 
-                <div class="clock" id="clock">
-                    00:00:00
+
+                <!-- CLOCK -->
+
+                <div class="clock-box">
+
+                    <strong id="clock">
+                        00:00:00
+                    </strong>
+
+                    <small id="date">
+                        30 AUG 2026
+                    </small>
+
                 </div>
 
             </div>
 
         </header>
 
-        <!-- MAIN GRID -->
-        <section class="dashboard-grid">
 
 
-            <!-- KEYWORD CARD -->
-            <div class="card keyword-card">
+        <!-- =================================================
+             WELCOME
+             ================================================= -->
 
-                <div class="card-header">
+        <section class="welcome-panel">
+
+
+            <div>
+
+                <small>
+                    SYSTEM INITIALIZED
+                </small>
+
+                <h3>
+                    Hello, Saran.
+                </h3>
+
+                <p>
+                    Your Edge Device is
+                    <strong id="welcomeStatus">
+                        connecting...
+                    </strong>
+                </p>
+
+            </div>
+
+
+            <div class="system-online">
+
+                <span></span>
+
+                <strong id="systemState">
+                    SYSTEM CONNECTING
+                </strong>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             MAIN DASHBOARD
+             ================================================= -->
+
+        <section class="dashboard">
+
+
+            <!-- =================================================
+                 WAKE WORD
+                 ================================================= -->
+
+            <div class="panel wake-panel">
+
+
+                <div class="panel-header">
 
                     <span>
-                        ● &nbsp; WAKE WORD DETECTION
+                        ◉ &nbsp; WAKE WORD DETECTION
                     </span>
 
                     <strong id="liveLabel">
@@ -71,56 +355,93 @@
                 </div>
 
 
-                <div class="keyword-content">
+                <div class="wake-content">
 
-                    <div class="confidence-ring">
 
-                        <div class="ring-inner">
+                    <!-- CONFIDENCE -->
 
-                            <strong id="confidence">
-                                --
-                            </strong>
+                    <div class="confidence-wrapper">
 
-                            <small>
-                                CONFIDENCE
-                            </small>
+                        <div class="confidence-ring">
+
+                            <div class="confidence-inner">
+
+                                <strong id="confidence">
+                                    --
+                                </strong>
+
+                                <small>
+                                    CONFIDENCE
+                                </small>
+
+                            </div>
 
                         </div>
 
                     </div>
 
 
-                    <div class="keyword-info">
+                    <!-- DETAILS -->
 
-                        <label>
+                    <div class="wake-details">
+
+                        <small>
                             DETECTED PHRASE
-                        </label>
+                        </small>
 
-                        <h3>
+                        <h3 id="detectedPhrase">
                             "Dear Folk"
                         </h3>
 
-                        <div class="confidence-bar">
+
+                        <div class="confidence-line">
+
                             <div id="confidenceBar"></div>
+
                         </div>
 
 
-                        <div class="small-stats">
+                        <div class="wake-stats">
+
 
                             <div>
-                                <small>DETECTIONS</small>
-                                <strong id="detections">--</strong>
+
+                                <small>
+                                    DETECTIONS
+                                </small>
+
+                                <strong id="detections">
+                                    --
+                                </strong>
+
                             </div>
 
-                            <div>
-                                <small>FALSE ACTIVATIONS</small>
-                                <strong id="falseActivations">--</strong>
-                            </div>
 
                             <div>
-                                <small>INFERENCE</small>
-                                <strong id="inference">-- ms</strong>
+
+                                <small>
+                                    FALSE ACTIVATIONS
+                                </small>
+
+                                <strong id="falseActivations">
+                                    --
+                                </strong>
+
                             </div>
+
+
+                            <div>
+
+                                <small>
+                                    INFERENCE
+                                </small>
+
+                                <strong id="inference">
+                                    -- ms
+                                </strong>
+
+                            </div>
+
 
                         </div>
 
@@ -129,9 +450,10 @@
                 </div>
 
 
-                <div class="wave">
+                <!-- WAVEFORM -->
 
-                    <span></span>
+                <div class="waveform" id="waveform">
+
                     <span></span>
                     <span></span>
                     <span></span>
@@ -154,246 +476,292 @@
 
                 </div>
 
-            </div>
-
-
-          <!-- EDGE DEVICE CARD -->
-<div class="card device-card">
-
-    <div class="card-header">
-
-        <span>
-            ◈ &nbsp; EDGE DEVICE / DIGITAL TWIN
-        </span>
-
-        <strong id="deviceStatus">
-            OFFLINE
-        </strong>
-
-    </div>
-
-
-    <!-- DEVICE VISUAL -->
-    <div class="device-visual">
-
-        <!-- Radar / Orbit -->
-        <div class="device-orbit orbit-1"></div>
-        <div class="device-orbit orbit-2"></div>
-
-        <!-- Left: Microphone -->
-        <div class="device-node mic-node">
-
-            <div class="node-icon">◉</div>
-
-            <strong>MIC</strong>
-
-            <small>
-                AUDIO INPUT
-            </small>
-
-        </div>
-
-
-        <!-- Data flow -->
-        <div class="data-flow flow-left">
-
-            <span></span>
-            <span></span>
-            <span></span>
-
-        </div>
-
-
-        <!-- ESP32 -->
-        <div class="esp-chip">
-
-            <div class="chip-header">
-
-                <span>EDGE AI</span>
-
-                <span class="chip-live">
-                    <i></i> LIVE
-                </span>
 
             </div>
 
 
-            <div class="chip-main">
 
-                <div class="chip-logo">
-                    E
-                </div>
+            <!-- =================================================
+                 HOLOGRAPHIC ESP32
+                 ================================================= -->
 
-                <div class="chip-name">
+            <div class="panel device-card">
 
-                    ESP32
 
-                    <strong>
-                        XIAO S3
+                <div class="panel-header">
+
+                    <span>
+                        ◈ &nbsp; EDGE DEVICE
+                    </span>
+
+                    <strong id="deviceStatus">
+                        OFFLINE
                     </strong>
 
                 </div>
 
+
+                <div class="hologram">
+
+
+                    <!-- SCANNER -->
+
+                    <div class="scan scan-1"></div>
+
+                    <div class="scan scan-2"></div>
+
+                    <div class="scan scan-3"></div>
+
+                    <div class="scan-segments"></div>
+
+
+                    <!-- BEAM -->
+
+                    <div class="holo-beam"></div>
+
+
+                    <!-- ESP32 BOARD -->
+
+                    <div class="esp-board">
+
+
+                        <div class="usb">
+                            USB-C
+                        </div>
+
+
+                        <div class="board-label-top">
+                            XIAO S3
+                        </div>
+
+
+                        <div class="main-mcu">
+
+                            <span>
+                                ESP
+                            </span>
+
+                        </div>
+
+
+                        <div class="board-chip chip-a"></div>
+
+                        <div class="board-chip chip-b"></div>
+
+                        <div class="board-chip chip-c"></div>
+
+
+                        <div class="gold-pin p1"></div>
+                        <div class="gold-pin p2"></div>
+                        <div class="gold-pin p3"></div>
+                        <div class="gold-pin p4"></div>
+                        <div class="gold-pin p5"></div>
+                        <div class="gold-pin p6"></div>
+
+                        <div class="gold-pin r1"></div>
+                        <div class="gold-pin r2"></div>
+                        <div class="gold-pin r3"></div>
+                        <div class="gold-pin r4"></div>
+                        <div class="gold-pin r5"></div>
+                        <div class="gold-pin r6"></div>
+
+
+                        <div class="board-text">
+                            ESP32
+                            <strong>XIAO S3</strong>
+                        </div>
+
+                    </div>
+
+
+                    <!-- PLATFORM -->
+
+                    <div class="platform">
+
+                        <div class="platform-ring ring-a"></div>
+
+                        <div class="platform-ring ring-b"></div>
+
+                        <div class="platform-ring ring-c"></div>
+
+                        <div class="platform-core"></div>
+
+                    </div>
+
+
+                    <!-- LEFT HUD -->
+
+                    <div class="device-hud left-hud">
+
+
+                        <div>
+
+                            <small>
+                                POWER
+                            </small>
+
+                            <strong id="holoPower">
+                                -- mW
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <small>
+                                CPU
+                            </small>
+
+                            <strong id="holoCpu">
+                                -- %
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <small>
+                                ENGINE
+                            </small>
+
+                            <strong>
+                                EDGE KWS
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- RIGHT HUD -->
+
+                    <div class="device-hud right-hud">
+
+
+                        <div>
+
+                            <small>
+                                VOLTAGE
+                            </small>
+
+                            <strong id="holoVoltage">
+                                -- V
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <small>
+                                CURRENT
+                            </small>
+
+                            <strong id="holoCurrent">
+                                -- mA
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <small>
+                                MODE
+                            </small>
+
+                            <strong>
+                                ON-DEVICE
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- DEVICE NAME -->
+
+                    <div class="holo-name">
+
+                        <strong>
+                            ESP32 XIAO S3
+                        </strong>
+
+                        <small>
+                            EDGE KWS PROCESSOR
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DEVICE INFO -->
+
+                <div class="device-info">
+
+
+                    <div>
+
+                        <small>
+                            DEVICE ID
+                        </small>
+
+                        <strong>
+                            esp32s3_001
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <small>
+                            FIRMWARE
+                        </small>
+
+                        <strong>
+                            v1.0.4
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <small>
+                            INFERENCE
+                        </small>
+
+                        <strong>
+                            LOCAL
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
             </div>
 
 
-            <!-- Chip pins -->
 
-            <div class="chip-pins left-pins">
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-            </div>
+            <!-- =================================================
+                 LIVE METRICS
+                 ================================================= -->
 
-            <div class="chip-pins right-pins">
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-            </div>
+            <div class="panel metrics-panel">
 
 
-            <div class="chip-footer">
-
-                <span>
-                    KWS ENGINE
-                </span>
-
-                <span>
-                    LOCAL INFERENCE
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <!-- Data flow -->
-        <div class="data-flow flow-right">
-
-            <span></span>
-            <span></span>
-            <span></span>
-
-        </div>
-
-
-        <!-- Right: Telemetry -->
-
-        <div class="device-node telemetry-node">
-
-            <div class="node-icon">
-                ↗
-            </div>
-
-            <strong>
-                TELEMETRY
-            </strong>
-
-            <small>
-                REALTIME DATA
-            </small>
-
-        </div>
-
-    </div>
-
-
-    <!-- DEVICE NAME -->
-
-    <h3 class="device-name">
-        ESP32 XIAO S3
-    </h3>
-
-
-    <p class="device-subtitle">
-        EDGE AI MICROCONTROLLER
-    </p>
-
-
-    <!-- DEVICE ID -->
-
-    <div class="device-id">
-
-        DEVICE ID :
-        <strong>
-            esp32s3_001
-        </strong>
-
-    </div>
-
-
-    <!-- NEW DEVICE FEATURES -->
-
-    <div class="device-features">
-
-        <div class="feature">
-
-            <span class="feature-icon">
-                ◉
-            </span>
-
-            <div>
-                <small>
-                    AUDIO
-                </small>
-
-                <strong>
-                    ACTIVE
-                </strong>
-            </div>
-
-        </div>
-
-
-        <div class="feature">
-
-            <span class="feature-icon">
-                ◆
-            </span>
-
-            <div>
-                <small>
-                    AI
-                </small>
-
-                <strong>
-                    ON-DEVICE
-                </strong>
-            </div>
-
-        </div>
-
-
-        <div class="feature">
-
-            <span class="feature-icon">
-                ↗
-            </span>
-
-            <div>
-                <small>
-                    CLOUD
-                </small>
-
-                <strong>
-                    READY
-                </strong>
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-            <!-- TELEMETRY -->
-            <div class="card telemetry-card">
-
-                <div class="card-header">
+                <div class="panel-header">
 
                     <span>
-                        + &nbsp; LIVE TELEMETRY
+                        ⚡ &nbsp; LIVE METRICS
                     </span>
 
                     <strong>
@@ -403,124 +771,351 @@
                 </div>
 
 
-                <div class="telemetry-grid">
+                <div class="metrics-grid">
 
 
-                    <div class="metric">
+                    <div class="metric-card">
 
-                        <small>POWER</small>
+                        <small>
+                            POWER
+                        </small>
 
-                        <strong id="power">
-                            --
-                        </strong>
+                        <div class="metric-circle red">
 
-                        <span>mW</span>
+                            <span>
+                                ⚡
+                            </span>
 
-                    </div>
+                            <strong id="power">
+                                --
+                            </strong>
 
+                            <em>
+                                mW
+                            </em>
 
-                    <div class="metric">
-
-                        <small>VOLTAGE</small>
-
-                        <strong id="voltage">
-                            --
-                        </strong>
-
-                        <span>V</span>
-
-                    </div>
-
-
-                    <div class="metric">
-
-                        <small>CURRENT</small>
-
-                        <strong id="current">
-                            --
-                        </strong>
-
-                        <span>mA</span>
+                        </div>
 
                     </div>
 
 
-                    <div class="metric">
+                    <div class="metric-card">
 
-                        <small>CPU</small>
+                        <small>
+                            VOLTAGE
+                        </small>
 
-                        <strong id="cpu">
-                            --
-                        </strong>
+                        <div class="metric-circle blue">
 
-                        <span>%</span>
+                            <span>
+                                ⚡
+                            </span>
+
+                            <strong id="voltage">
+                                --
+                            </strong>
+
+                            <em>
+                                V
+                            </em>
+
+                        </div>
 
                     </div>
+
+
+                    <div class="metric-card">
+
+                        <small>
+                            CURRENT
+                        </small>
+
+                        <div class="metric-circle yellow">
+
+                            <span>
+                                ≋
+                            </span>
+
+                            <strong id="current">
+                                --
+                            </strong>
+
+                            <em>
+                                mA
+                            </em>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="metric-card">
+
+                        <small>
+                            CPU
+                        </small>
+
+                        <div class="metric-circle green">
+
+                            <span>
+                                ▣
+                            </span>
+
+                            <strong id="cpu">
+                                --
+                            </strong>
+
+                            <em>
+                                %
+                            </em>
+
+                        </div>
+
+                    </div>
+
 
                 </div>
 
             </div>
 
 
-            <!-- SYSTEM STATUS -->
-            <div class="card status-card">
 
-                <div class="card-header">
+            <!-- =================================================
+                 SYSTEM STATUS
+                 ================================================= -->
+
+            <div class="panel status-panel">
+
+
+                <div class="panel-header">
 
                     <span>
-                        ◈ &nbsp; SYSTEM STATUS
+                        ⚙ &nbsp; SYSTEM STATUS
                     </span>
 
                 </div>
 
 
-                <div class="status-row">
+                <div class="status-list">
 
-                    <span>DATABASE</span>
 
-                    <strong id="databaseStatus">
-                        CONNECTING
-                    </strong>
+                    <div>
 
-                </div>
+                        <span>
+                            DEVICE
+                        </span>
 
-                <div class="status-row">
+                        <strong id="deviceStatus2">
+                            --
+                        </strong>
 
-                    <span>DEVICE</span>
+                    </div>
 
-                    <strong id="deviceStatus2">
-                        --
-                    </strong>
 
-                </div>
+                    <div>
 
-                <div class="status-row">
+                        <span>
+                            DATABASE
+                        </span>
 
-                    <span>ENGINE</span>
+                        <strong class="status-green"
+                                id="databaseStatus">
+                            CONNECTING
+                        </strong>
 
-                    <strong>
-                        EDGE KWS
-                    </strong>
+                    </div>
 
-                </div>
 
-                <div class="status-row">
+                    <div>
 
-                    <span>MODE</span>
+                        <span>
+                            STATUS
+                        </span>
 
-                    <strong>
-                        LIVE
-                    </strong>
+                        <strong class="status-green"
+                                id="statusWorking">
+                            WAITING
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            MODE
+                        </span>
+
+                        <strong class="status-green">
+                            LIVE
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            ENGINE
+                        </span>
+
+                        <strong class="status-blue">
+                            EDGE KWS
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            LAST EVENT
+                        </span>
+
+                        <strong id="lastEvent">
+                            --
+                        </strong>
+
+                    </div>
+
 
                 </div>
 
             </div>
 
 
-            <!-- RESOURCE USAGE -->
-            <div class="card resource-card">
 
-                <div class="card-header">
+            <!-- =================================================
+                 VOICE ASSISTANT
+                 ================================================= -->
+
+            <div class="panel assistant-panel">
+
+
+                <div class="panel-header">
+
+                    <span>
+                        ◉ &nbsp; VOICE ASSISTANT
+                    </span>
+
+                    <strong>
+                        F.R.I.D.A.Y
+                    </strong>
+
+                </div>
+
+
+                <div class="assistant-body">
+
+
+                    <div class="assistant-orb">
+
+                        <div class="assistant-core">
+                            F
+                        </div>
+
+                    </div>
+
+
+                    <div class="assistant-message">
+
+                        <small>
+                            F.R.I.D.A.Y
+                        </small>
+
+                        <p id="assistantMessage">
+                            Waiting for keyword...
+                        </p>
+
+                    </div>
+
+
+                    <div class="assistant-wave">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+
+                    <div class="listening">
+
+                        <span></span>
+
+                        <strong id="listeningText">
+                            LISTENING...
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 REALTIME TELEMETRY
+                 ================================================= -->
+
+            <div class="panel telemetry-chart">
+
+
+                <div class="panel-header">
+
+                    <span>
+                        ◈ &nbsp; REAL-TIME TELEMETRY
+                    </span>
+
+                    <strong>
+                        ● LIVE
+                    </strong>
+
+                </div>
+
+
+                <div class="chart-legend">
+
+                    <span class="legend-power">
+                        ● POWER (mW)
+                    </span>
+
+                    <span class="legend-cpu">
+                        ● CPU (%)
+                    </span>
+
+                    <span class="legend-confidence">
+                        ● CONFIDENCE (%)
+                    </span>
+
+                </div>
+
+
+                <div class="chart-container">
+
+                    <canvas id="telemetryChart"></canvas>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 RESOURCE USAGE
+                 ================================================= -->
+
+            <div class="panel resource-panel">
+
+
+                <div class="panel-header">
 
                     <span>
                         ▣ &nbsp; RESOURCE USAGE
@@ -529,57 +1124,136 @@
                 </div>
 
 
-                <div class="resource">
+                <div class="resource-item">
 
                     <div>
-                        <span>CPU UTILIZATION</span>
-                        <strong id="cpuValue">--%</strong>
+
+                        <span>
+                            CPU USAGE
+                        </span>
+
+                        <strong id="cpuValue">
+                            --%
+                        </strong>
+
                     </div>
 
-                    <div class="progress">
+                    <div class="resource-bar">
+
                         <div id="cpuBar"></div>
+
                     </div>
 
                 </div>
 
 
-                <div class="resource">
+                <div class="resource-item">
 
                     <div>
-                        <span>RAM USAGE</span>
-                        <strong id="ram">-- KB</strong>
+
+                        <span>
+                            RAM USAGE
+                        </span>
+
+                        <strong id="ram">
+                            -- KB
+                        </strong>
+
                     </div>
 
-                    <div class="progress">
+                    <div class="resource-bar">
+
                         <div id="ramBar"></div>
+
                     </div>
 
                 </div>
 
 
-                <div class="resource">
+                <div class="resource-item">
 
                     <div>
-                        <span>POWER CONSUMPTION</span>
-                        <strong id="powerValue">-- mW</strong>
+
+                        <span>
+                            CURRENT DRAW
+                        </span>
+
+                        <strong id="currentResource">
+                            -- mA
+                        </strong>
+
                     </div>
 
-                    <div class="progress">
-                        <div id="powerBar"></div>
+                    <div class="resource-bar yellow-bar">
+
+                        <div id="currentBar"></div>
+
                     </div>
 
                 </div>
+
+
+                <div class="resource-item">
+
+                    <div>
+
+                        <span>
+                            POWER
+                        </span>
+
+                        <strong id="powerValue">
+                            -- mW
+                        </strong>
+
+                    </div>
+
+                    <div class="resource-bar red-bar">
+
+                        <div id="powerBar"></div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="resource-item">
+
+                    <div>
+
+                        <span>
+                            FALSE ACTIVATIONS
+                        </span>
+
+                        <strong id="falseResource">
+                            --
+                        </strong>
+
+                    </div>
+
+                    <div class="resource-bar">
+
+                        <div id="falseBar"></div>
+
+                    </div>
+
+                </div>
+
 
             </div>
 
 
-            <!-- CONSOLE -->
-            <div class="card console-card">
 
-                <div class="card-header">
+            <!-- =================================================
+                 CONSOLE
+                 ================================================= -->
+
+            <div class="panel console-panel">
+
+
+                <div class="panel-header">
 
                     <span>
-                        ▣ &nbsp; SYSTEM CONSOLE
+                        ▣ &nbsp; CONSOLE LOGS
                     </span>
 
                     <strong>
@@ -589,11 +1263,17 @@
                 </div>
 
 
-                <div class="console">
+                <div class="console"
+                     id="console">
 
                     <p>
                         <span>[SYSTEM]</span>
                         Edge KWS initialized...
+                    </p>
+
+                    <p>
+                        <span>[DEVICE]</span>
+                        ESP32 XIAO S3 detected...
                     </p>
 
                     <p>
@@ -610,29 +1290,42 @@
 
             </div>
 
+
         </section>
 
 
+
+        <!-- FOOTER -->
+
         <footer>
 
-            EDGE KWS MONITOR
+            EDGE//KWS
 
-            <span>●</span>
+            <span>•</span>
 
-            REAL-TIME ANALYTICS
+            REAL-TIME EDGE INTELLIGENCE
 
-            <span>●</span>
+            <span>•</span>
 
             FIREBASE REALTIME DATABASE
 
+            <span>•</span>
+
+            ESP32 XIAO S3
+
         </footer>
+
 
     </main>
 
 </div>
 
 
-<script type="module" src="app.js"></script>
+<script type="module"
+        src="app.js">
+</script>
+
 
 </body>
+
 </html>
